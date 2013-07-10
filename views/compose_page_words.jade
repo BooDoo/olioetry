@@ -1,0 +1,74 @@
+extends base
+
+append head
+	script(src="words.js")
+
+body
+	#header
+		a(href="/")
+			img(src="images/HandN_Logo_Small.png")
+		ul
+			li
+				a(href="/poems") New
+			li
+				a(href="/poems/haughtiest") Haughty
+			li
+				a(href="/poems/naughtiest") Naughty
+
+	#prettyTitleBox
+
+	#wordTitlebox.titlebox.wordTitlebox.hidden
+		#thematicWords
+			h3.titleLine
+			.wordList
+
+		#commonWords
+			h3.titleLine
+			.wordList
+
+	.titlebox.realTitlebox
+		h3 Titles
+		ul.titleList
+
+	#composeModal
+		.contentBox
+			.contentOptions
+			.content
+				img(src="images/Title_Compose.png")
+
+		.contentBox
+			.contentOptions
+			.content
+				h1#composeTitle.select-title Select a Title
+				h3#composeAuthor
+					| by&nbsp;
+					span#authorName.anonymous(contenteditable="true")
+						| anonymous
+
+					span#authorEditHint &nbsp;(edit)
+
+		.contentBox
+			.contentOptions
+			.content
+				#composerDragDrop
+					table.composerTable
+						tr.composerLine
+							td.composerLineNumber 1.
+							td.composerLineContent
+						tr.composerLine
+							td.composerLineNumber 2.
+							td.composerLineContent
+						tr.composerLine
+							td.composerLineNumber 3.
+							td.composerLineContent
+						tr.composerLine
+							td.composerLineNumber 4.
+							td.composerLineContent
+
+		.contentBox
+			.contentOptions
+			.content
+				#saveButton.disabled SAVE
+				#clearButton CLEAR
+
+				#savedMessage.hidden Saved.

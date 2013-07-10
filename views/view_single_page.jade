@@ -1,0 +1,38 @@
+extends base
+
+append head
+  script(src="/view_page.js")
+
+body
+	#header
+		a(href="/")
+			img(src="/images/HandN_Logo_Small.png")
+		ul
+		li
+				a(href="/poems") New
+		li
+				a(href="/poems/haughtiest") Haughty
+		li
+				a(href="/poems/naughtiest") Naughty
+
+	each poem in poems
+	//- poems.each_with_index do |poem, index|
+		#singlePoem
+			.contentBox
+				.contentOptions
+
+				#content
+					h1= poem.title
+					h3 by #{poem.author}
+					p.poem
+						each line in poem.lines
+							#{line}
+							br
+					  br
+					.haughtyButton
+						img(src="/images/Button_Haughty.png")
+						h3= poem.haughty
+
+					.naughtyButton
+						img(src="/images/Button_Naughty.png")
+						h3= poem.naughty
