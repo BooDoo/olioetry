@@ -53,13 +53,17 @@ class WordsAPI < Sinatra::Base
 		poem = JSON.parse(request.body.read)
 		print poem
 
+		if poem["lines"].all? { |line| line.empty? } then
+			return 204
+		end
+
 		next_id = POEMS.keys.max + 1
 		poem = Poem.new(next_id, poem["title"], poem["author"], poem["lines"])
 
 		POEMS[next_id] = poem
 		poem.persist!
 
-		200
+		return 200
 	end
 
 	get "/api/poem/:id" do
@@ -138,7 +142,7 @@ class WordsAPI < Sinatra::Base
 	end
 
 	get '/compose' do
-		slim :compose_page_words
+		slim :compose_page
 	end
 
 	require './view_page_helpers'
