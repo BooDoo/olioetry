@@ -1,7 +1,6 @@
 var dbmodels = require('./dbmodels.js'),
     Poem = function(id, title, author, lines) {
       if (!(this instanceof Poem)) {return new Poem(id, title, author, lines);}
-      console.log("id:",id,"\ttitle:",title,"\tauthor:",author,"\nlines:",lines);
   		this.id = id;
       this.title = title;
       this.author = author;
@@ -9,7 +8,6 @@ var dbmodels = require('./dbmodels.js'),
 
       this.haughty = this.naughty = 0;
       this.persisted = null;
-      console.log("this...id:",id,"\ttitle:",title,"\tauthor:",author,"\nlines:",lines);
       return this;
     };
 
