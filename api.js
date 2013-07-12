@@ -129,7 +129,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/compose', function(req, res) {
-  res.render('compose_page_words');
+  res.render('compose_page');
 });
 
 app.get('/poem/:id', function(req, res) {
