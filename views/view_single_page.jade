@@ -1,0 +1,37 @@
+extends base
+
+append head
+	script(src="/view_page.js")
+
+block content
+	#header
+		a(href="/")
+			img(src="/images/HandN_Logo_Small.png")
+		ul
+		li
+				a(href="/poems") New
+		li
+				a(href="/poems/haughtiest") Haughty
+		li
+				a(href="/poems/naughtiest") Naughty
+
+	each poem in poems
+		#singlePoem
+			.contentBox
+				.contentOptions
+
+				.content
+					h1= poem.title
+					h3 by #{poem.author}
+					p.poem
+						each line in poem.lines
+							- line = bake_line(line)
+							| #{line}
+							br
+					.haughtyButton
+						img(src="/images/Button_Haughty.png")
+						h3= poem.haughty
+
+					.naughtyButton
+						img(src="/images/Button_Naughty.png")
+						h3= poem.naughty

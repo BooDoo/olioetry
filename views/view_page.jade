@@ -1,0 +1,65 @@
+extends base
+
+append head
+	link(rel="stylesheet",type="text/css",href="/handn_stylesheet.css")
+	meta(http-equiv="Content-Type",content="text/html; charset=UTF-8")
+	script(src="http://code.jquery.com/jquery-1.10.2.min.js")
+	script(src="/view_page.js")
+	title
+		| Haughty or Naughty Magnetic Poetry Game
+
+block content
+	#header
+		a(href="/")
+			img(src="/images/HandN_Logo_Small.png")
+		ul
+			li
+				a(href="/poems") New
+			li
+				a(href="/poems/haughtiest") Haughty
+			li
+				a(href="/poems/naughtiest") Naughty
+
+	a(href="/compose")
+		#ComposeButton
+			img(src="/images/Button_Compose_Hover.png")
+			h4 COMPOSE
+
+	#naughtyContent
+
+		.contentBox
+			.contentOptions
+
+			.content
+				- if (header == 'haughty')
+					img(src="/images/Title_Haughty.png")
+				- else if (header == 'naughty')
+					img(src="/images/Title_Naughty.png")
+				- else if (header == 'new')
+					img(src="/images/Title_New_Poems.png")
+		- console.log(poems);
+		each poem, i in poems
+			.poemPadder
+
+			.contentBox(id="#{poem.id}")
+				.contentOptions
+					h1 ##{i + 1}
+
+				.content
+					a.poem-link(href="/poem/#{poem.id}")
+						h1= poem.title
+					h3 by #{poem.author}
+					a.poem-link(href="/poem/#{poem.id}")
+						p.poem
+							each line in poem.lines
+								- line = bake_line(line)
+								| #{line}
+								br
+
+					.haughtyButton
+						img(src="/images/Button_Haughty.png")
+						h3= poem.haughty
+
+					.naughtyButton
+						img(src="/images/Button_Naughty.png")
+						h3= poem.naughty

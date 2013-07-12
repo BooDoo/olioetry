@@ -12,18 +12,18 @@ body
         a href="/"
     	   img src="/images/HandN_Logo_Small.png"
         ul
-  			li 
+  			li
             	a href="/poems" New
-  			li 
+  			li
             	a href="/poems/haughtiest" Haughty
-  			li 
+  			li
             	a href="/poems/naughtiest" Naughty
 
     - poems.each_with_index do |poem, index|
         div id="singlePoem"
         	div class="contentBox"
 	         	div class="contentOptions"
-	            
+
 	            div class="content"
 	            	h1 = "#{poem.title}"
 	                h3 = "by #{poem.author}"
@@ -32,11 +32,11 @@ body
 	                        = bake_line(line)
 	                        - if l_index != poem.lines.length - 1 then
 	                            br
-	                
+
 	                div class="haughtyButton"
-	                	img src="/images/Button_Haughty.png" 
+	                	img src="/images/Button_Haughty.png"
 	                    h3 = "#{poem.haughty}"
-	                
+
 	                div class="naughtyButton"
-	                	img src="/images/Button_Naughty.png" 
+	                	img src="/images/Button_Naughty.png"
 	                    h3 = "#{poem.naughty}"

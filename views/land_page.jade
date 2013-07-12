@@ -1,0 +1,27 @@
+extends base
+
+block content
+	img#HaughtyMan(src='/images/Haughty_Man_Small.png')
+	img#NaughtyMan(src='/images/Naughty_Man_Small.png')
+
+	#landingBox
+		img(src='/images/Landing_HandN_.png')
+
+		h1
+			| "Some people leave artwork, some people do rude things, other people then turn those rude things into nice things."
+		h3
+			| Peter Molyneux
+		p
+			| Will you choose to write prose with class, or tell tales that are crass?  Haughty or Naughty allows you to express yourself in whichever way you choose.  Will you score the lewdest poem in all the land?  Or pen the most prophetic prose on the peninsula?  Let your peers decide!
+
+		#landingButtonBox
+			a(href='/compose')
+				#landingComposeButton
+					img(src='/images/Button_Compose_Hover.png')
+					h4
+						| COMPOSE
+			a(href='/poems')
+				#landingJudgeButton
+					img(src='/images/Button_Judge.png')
+					h4
+						| JUDGE
