@@ -102,11 +102,11 @@ app.get('/api/newpoem/:theme_id', function(req, res) {
 app.post('/api/submitpoem', function(req, res) {
   var poem = req.body,
       next_id = (_.max(POEMS, "id").id || -1) + 1;
-  console.log("req.body:",req.body);
-  console.log("poem as JSON object:",poem);
+
+  if (_.all(poem.lines, _.isEmpty)) {res.send(null,204); return;}
+
   poem = new Poem(next_id, poem.title, poem.author, poem.lines);
   POEMS[next_id] = poem;
-  console.log("poem before persist() in api.js",poem);
   poem.persist();
 
   res.send(next_id, 200);
