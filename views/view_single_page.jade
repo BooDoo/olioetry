@@ -1,9 +1,9 @@
 extends base
 
 append head
-  script(src="/view_page.js")
+	script(src="/view_page.js")
 
-body
+block content
 	#header
 		a(href="/")
 			img(src="/images/HandN_Logo_Small.png")
@@ -16,19 +16,18 @@ body
 				a(href="/poems/naughtiest") Naughty
 
 	each poem in poems
-	//- poems.each_with_index do |poem, index|
 		#singlePoem
 			.contentBox
 				.contentOptions
 
-				#content
+				.content
 					h1= poem.title
 					h3 by #{poem.author}
 					p.poem
 						each line in poem.lines
-							#{line}
+							- line = bake_line(line)
+							| #{line}
 							br
-					  br
 					.haughtyButton
 						img(src="/images/Button_Haughty.png")
 						h3= poem.haughty

@@ -212,7 +212,7 @@ function submit() {
 		lines: lines
 	};
 
-	$.post('/api/submitpoem', JSON.stringify(poem), showSaved);
+	$.post('/api/submitpoem', poem, showSaved);
 	alreadySaved = true;
 	updateSaveState();
 
