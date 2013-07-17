@@ -14,7 +14,7 @@ function handleMagnetDragEnd(e) {
 }
 
 function handleMagnetDragOver(e) {
-	// alert("dragover");
+	//alert("dragover");
 
 	if ($(e.target).closest(".composerLineContent") ||
 		$(e.target).closest(".wordList")) {
@@ -26,6 +26,7 @@ function handleMagnetDragOver(e) {
 
 		return false;
 	} else {
+		console.log("non-composer/wordList dragOver");
 		return true;
 	}
 }
@@ -203,6 +204,10 @@ $(window).load(function () {
 	$("#authorEditHint").click(startEditingAuthor);
 
 	$("#filterBox").on("keyup", magnetFilter);
+
+	//Scope this better? e.g. make a trash can icon?
+	$("body").on("dragover", handleMagnetDragOver);
+	$("body").on("drop", dropIntoWordList)
 
 	getWords(1);
 
