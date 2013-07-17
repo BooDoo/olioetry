@@ -17,12 +17,18 @@ block content
 
 	#prettyTitleBox
 
-	#wordTitlebox.titlebox.wordTitlebox
+	#wordTitlebox.titlebox.wordTitlebox(class=lang)
 		#thematicWords
-			input#filterBox
-			.wordList(class=lang)
+			#listHeader
+				input#filterBox
+				.toggleButton
+					span
+						| EN
+					span
+						| 日本
+			.wordList
 
-	#composeModal
+	#composeModal(class=lang)
 		.contentBox
 			.contentOptions
 			.content
@@ -43,7 +49,7 @@ block content
 			.contentOptions
 			.content
 				#composerDragDrop
-					table.composerTable(class=lang)
+					table.composerTable
 						tr.composerLine
 							td.composerLineNumber 1.
 							td.composerLineContent
@@ -60,7 +66,11 @@ block content
 		.contentBox
 			.contentOptions
 			.content
+				.toggleButton
+					span
+						| EN
+					span
+						| 日本
 				#saveButton.disabled SAVE
 				#clearButton CLEAR
-
 				#savedMessage.hidden Saved.

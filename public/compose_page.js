@@ -2,11 +2,23 @@ var alreadySaved = false,
 	draggingMagnet,
 	$magnets;
 
+function togglePoemLanguage() {
+	var targetBox = $(this).closest(".en,.jp");
+        $('.magnet.hidden, .magnet.force', targetBox).removeClass('hidden force');
+        if (targetBox.hasClass('en')) {
+                targetBox.removeClass('en').addClass('jp')
+        }
+        else {
+                targetBox.removeClass('jp').addClass('en');
+        }
+}
+
 function handleMagnetDragStart(e) {
 	// alert("dragstart");
 	e.originalEvent.dataTransfer.setData('text/plain', this.innerText); //TODO: Go up a level?
 	e.originalEvent.dataTransfer.effectAllowed = 'move';
 	draggingMagnet = this;
+	$(draggingMagnet).children().removeClass("hidden force");
 }
 
 function handleMagnetDragEnd(e) {
@@ -180,17 +192,19 @@ function submit() {
 }
 
 function magnetFilter() {
-	var criterion = $(this).val().replace(/ +/g, ' ').toLowerCase();
-
+	var criterion = new RegExp($(this).val().replace(/ +/g, ' ').replace(/\s+$/, "(?:\\s|$)").replace(/^\s/, "(?:^|\\s)").toLowerCase());
+	console.log(criterion);
 	$magnets.show().filter(function() {
-		var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-		return !~text.indexOf(criterion);
+		var enText = $(".en", this).text().replace(/\s+/g, ' ').toLowerCase();
+		var jpText = $(".jp", this).text().replace(/\s+/g, ' ').toLowerCase();
+		return (!~enText.search(criterion) && !~jpText.search(criterion));
 	}).hide();
 }
 
 $(window).load(function () {
 	$("#saveButton").click(submit);
 	$("#clearButton").click(clearComposer);
+	$(".toggleButton").click(togglePoemLanguage);
 
 	$(".wordList").on("dragover", handleMagnetDragOver);
 	$(".wordList").on("drop", dropIntoWordList);

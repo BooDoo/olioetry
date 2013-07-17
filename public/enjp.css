@@ -444,9 +444,28 @@ ul{
 }
 
 /* Unless we're being EXCEPTIONAL! */
-.force
-{
+.force {
         display:block !important;
+}
+
+/* List header (search box and language toggle) */
+#listHeader {
+        margin-bottom:5px;
+}
+
+#listHeader #filterBox {
+        float:left;
+        height:25px;
+        width:220px;
+        font-size:18px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:black;
+	font-size:22px;
+}
+
+#listHeader .toggleButton {
+        margin-right:5px;
+        margin-left:auto;
 }
 
 /* Fonts for Japanese lines and toggleButton: */
@@ -468,32 +487,36 @@ ul{
         border-radius: 2em;
 }
 
+#composeModal .toggleButton, #wordTitleBox .toggleButton {
+        float:right;
+}
+
 .toggleButton > span {
         padding: .2em;
 }
 
 /* White-out the inactive language,  */
-div.contentBox.en .toggleButton > span:last-child {
+.en .toggleButton > span:last-child {
         color: #FFFFFF;
 }
 
-div.contentBox.jp .toggleButton > span:first-child {
+.jp .toggleButton > span:first-child {
         color: #FFFFFF;
 }
 
 /*Swap on hover to indicate click behavior */
-div.contentBox.en .toggleButton:hover > span:first-child {
+.en .toggleButton:hover > span:first-child {
         color: #FFFFFF;
 }
 
-div.contentBox.en .toggleButton:hover > span:last-child {
+.en .toggleButton:hover > span:last-child {
         color: #000000;
 }
 
-div.contentBox.jp .toggleButton:hover > span:first-child {
+.jp .toggleButton:hover > span:first-child {
         color: #000000;
 }
 
-div.contentBox.jp .toggleButton:hover > span:last-child {
+.jp .toggleButton:hover > span:last-child {
         color: #FFFFFF;
 }
