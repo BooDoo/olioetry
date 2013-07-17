@@ -1,6 +1,6 @@
 function togglePoemLanguage() {
 	var targetBox = $(this).closest(".contentBox");
-        $('span', targetBox).removeClass('hidden').removeClass('force');
+        $('span', targetBox).removeClass('hidden force');
         if (targetBox.hasClass('en')) {
                 targetBox.removeClass('en').addClass('jp')
         }
