@@ -1,9 +1,10 @@
-var draggingMagnet = undefined;
-var alreadySaved = false;
+var alreadySaved = false,
+	draggingMagnet,
+	$magnets;
 
 function handleMagnetDragStart(e) {
 	// alert("dragstart");
-	e.originalEvent.dataTransfer.setData('text/plain', this.innerText);
+	e.originalEvent.dataTransfer.setData('text/plain', this.innerText); //TODO: Go up a level?
 	e.originalEvent.dataTransfer.effectAllowed = 'move';
 	draggingMagnet = this;
 }
@@ -29,6 +30,11 @@ function handleMagnetDragOver(e) {
 	}
 }
 
+function toggleForce() {
+        $(this).removeClass("force").addClass("hidden");
+        $(this).siblings().removeClass("hidden").addClass("force");
+}
+
 function canSave() {
 	return (alreadySaved == false) && ($(".composerLineContent .words").length > 0);
 }
@@ -50,13 +56,13 @@ function dropIntoComposer(e) {
 	var insertMagnet = undefined;
 
 	// if we're dragging the word from the word list, clone it
-	// otherwise, move it
+	// otherwise, move it.
 	if ($(draggingMagnet).closest(".wordList").length > 0) {
 		console.log("dragging from word list; cloning");
 		insertMagnet = $(draggingMagnet).clone(true);
 	} else if ($(draggingMagnet).closest("#composerDragDrop").length > 0) {
 		console.log("dragging from composer; moving");
-		insertMagnet = draggingMagnet;
+		insertMagnet = $(draggingMagnet);
 	} else {
 		console.log("dragging from somewhere else?");
 	}
@@ -113,73 +119,27 @@ function startEditingAuthor() {
 	return true;
 }
 
-function themeMode() {
-	$('.wordTitlebox').addClass('hidden');
-	$('.realTitlebox').removeClass('hidden');
-}
-
-function wordMode() {
-	$('.realTitlebox').addClass('hidden');
-	$('.wordTitlebox').removeClass('hidden');
-}
-
 function buildWord(titlebox, word) {
-	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div>');
-	magnet.children(".magnet").text(word);
+	var magnet = $('<div draggable="true" class="words"><h1 class="magnet en" /><h1 class="magnet jp"></div>');
+	magnet.children(".magnet.en").text(word.e);
+	magnet.children(".magnet.jp").text(word.j);
 
+        magnet.children().on("click", toggleForce);
 	magnet.on("dragstart", handleMagnetDragStart);
 	magnet.on("dragend", handleMagnetDragEnd);
 	$(titlebox).find('.wordList').append(magnet);
 }
 
-function buildWords(titlebox, theme, words) {
-	$(titlebox).find(".titleLine").text(theme);
-
-	words.sort();
-
+function buildWords(titlebox, words) {
 	for (var idx in words) {
 		buildWord(titlebox, words[idx]);
 	}
-
-	wordMode();
+        $magnets = $('.wordList > .words'); //TODO : load in batches (button? infinite scroll?)
 }
 
 function getWords(themeId) {
-	$.getJSON('/api/newpoem/' + themeId, function(data) {
-		buildWords($("#thematicWords"), "thematic words", data.words);
-		buildWords($("#commonWords"), "common words", data.common_words);
-	});
-}
-
-function chooseTheme(eventObject) {
-	// walk up to the theme ID
-	var themeId = $(this).closest('.themeId');
-	$('#composeTitle').text(themeId.find('.title').text());
-	$('#composeTitle').removeClass("select-title");
-
-	getWords(themeId[0].themeId);
-}
-
-function buildTheme(id, theme) {
-	var dom = $('<li class="themeId"><h1 class="title"></h1></li>');
-	dom.children(".title").text(theme);
-	dom[0].themeId = id;
-
-	dom.on("click", chooseTheme);
-	$('.titleList').append(dom);
-}
-
-function buildThemes(themes) {
-	for (var id in themes) {
-		buildTheme(id, themes[id]);
-	}
-
-	themeMode();
-}
-
-function getThemes() {
-	$.getJSON('/api/themes', function(data) {
-		buildThemes(data);
+	$.getJSON('/api/newpoem', function(data) {
+		buildWords($("#thematicWords"), data.words);
 	});
 }
 
@@ -201,13 +161,12 @@ function submit() {
 	var lines = [];
 
 	$('.composerLineContent').each(function (index) {
-		lines[index] = $(this).find('.magnet')
-							  .map(function (index, word) { return word.innerText })
-							  .get();
+		//MAYBE: Support multiple tokens on a line?
+		lines[index] = {en: $('.en', this).text(), jp: $('.jp', this).text()};
 	});
 
 	var poem = {
-		title: $("#composeTitle").text(),
+		title: $("#composeTitle").text() || "Untitled",
 		author: $("#authorName").text(),
 		lines: lines
 	};
@@ -217,6 +176,15 @@ function submit() {
 	updateSaveState();
 
 	// return words;
+}
+
+function magnetFilter() {
+	var criterion = $(this).val().replace(/ +/g, ' ').toLowerCase();
+
+	$magnets.show().filter(function() {
+		var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+		return !~text.indexOf(criterion);
+	}).hide();
 }
 
 $(window).load(function () {
@@ -234,7 +202,9 @@ $(window).load(function () {
 	$("#authorName").on("focus", startEditingAuthor);
 	$("#authorEditHint").click(startEditingAuthor);
 
-	getThemes();
+	$("#filterBox").on("keyup", magnetFilter);
 
-	console.log("hey hey hey");
+	getWords(1);
+
+	//console.log("hey hey hey");
 });

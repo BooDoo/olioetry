@@ -16,14 +16,17 @@ var express     = require('express'),
     allThemes   = Theme.loadAll('./wordlists'),
     THEMES      = allThemes.themes,
     COMMON_THEME= allThemes.common_theme,
-    POEMS       = [];
+    ENJPWORDS   = require('../splitPhrases.js'),
+    LANG        = 'en',
+    POEMS       = {};
 
     Db.initialize_models(function(res) {
       if (res instanceof Error) {throw res;}
       Db.Poem.all().success(function(dbpoems) {
         dbpoems.forEach(function(dbpoem,i) {
           var poem = Poem.depersist(dbpoem);
-          POEMS[poem.id] = poem
+          POEMS[poem.id] = poem;
+          console.log("Loading poem with id: ",poem.id);
         });
       });
     });
@@ -84,16 +87,12 @@ app.get('/api/themes', function(req, res) {
     res.send(JSON.stringify(themes));
 });
 
-app.get('/api/newpoem/:theme_id', function(req, res) {
-    if (!req.params.theme_id) {res.send(204); return 0;}
-    var theme_id = req.params.theme_id,
-        words = THEMES[theme_id - 1].words,
-        common_words = COMMON_THEME.words,
+app.get('/api/newpoem', function(req, res) {
+    var words = ENJPWORDS,
         result = {
             id: 0, //Why 0?
-            theme: THEMES[theme_id - 1].theme,
             words: words,
-            common_words: common_words || []
+            common_words: []
         };
 
     res.send(JSON.stringify(result));
@@ -101,14 +100,14 @@ app.get('/api/newpoem/:theme_id', function(req, res) {
 
 app.post('/api/submitpoem', function(req, res) {
   var poem = req.body,
-      next_id = (_.max(POEMS, "id").id || -1) + 1;
+      next_id = (_.max(POEMS,"id").id || -1) + 1;
 
   if (_.all(poem.lines, _.isEmpty)) {res.send(null,204); return;}
 
   poem = new Poem(next_id, poem.title, poem.author, poem.lines);
   POEMS[next_id] = poem;
   poem.persist();
-
+  console.log(POEMS);
   res.send(next_id, 200);
 });
 
@@ -125,11 +124,11 @@ app.get('/api/poem/:id', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  res.render('land_page');
+  res.render('land_page', {lang: LANG});
 });
 
 app.get('/compose', function(req, res) {
-  res.render('compose_page');
+  res.render('compose_page', {lang: LANG});
 });
 
 app.get('/poem/:id', function(req, res) {
@@ -141,7 +140,7 @@ app.get('/poem/:id', function(req, res) {
         res.send(null, 404)
       }
       else {
-        res.render('view_single_page', {poems: result, header: 'new',
+        res.render('view_single_page', {lang: LANG, poems: result, header: 'new',
                                         bake_line: viewHelp.bakeLine});
       }
 });
@@ -149,21 +148,21 @@ app.get('/poem/:id', function(req, res) {
 app.get('/poems', function(req, res) {
   var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value();
 
-  res.render('view_page', {poems: result, header: 'new',
+  res.render('view_page', {lang: LANG, poems: result, header: 'new',
                             bake_line: viewHelp.bakeLine});
 });
 
 app.get('/poems/haughtiest', function(req, res) {
   var result = _(POEMS).sortBy('haughty').last(VIEW_PAGE_LENGTH).reverse().value();
 
-  res.render('view_page', {poems: result, header: 'haughty',
+  res.render('view_page', {lang: LANG, poems: result, header: 'haughty',
                             bake_line: viewHelp.bakeLine});
 });
 
 app.get('/poems/naughtiest', function(req, res) {
   var result = _(POEMS).sortBy('naughty').last(VIEW_PAGE_LENGTH).reverse().value();
 
-  res.render('view_page', {poems: result, header: 'naughty',
+  res.render('view_page', {lang: LANG, poems: result, header: 'naughty',
                             bake_line: viewHelp.bakeLine});
 });
 

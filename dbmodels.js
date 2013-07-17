@@ -13,7 +13,7 @@ var sqlite = require('sqlite3'),
 			"DB": DB,
 			"initializeModels": function initializeModels(cb) {
 				this.Poem = DB.define('Poem', {
-					id: 			{type: Sequelize.INTEGER, primaryKey:true},
+					id: 		{type: Sequelize.INTEGER, primaryKey:true},
 					title: 		Sequelize.STRING,
 					author: 	Sequelize.STRING,
 
@@ -22,8 +22,10 @@ var sqlite = require('sqlite3'),
 				}, {timestamps: false});
 
 				this.Line = DB.define('Line', {
-					id: 			{type: Sequelize.INTEGER, primaryKey:true, autoIncrement: true},
-					text: 		Sequelize.STRING,
+					id: 		{type: Sequelize.INTEGER, primaryKey:true, autoIncrement: true},
+					//text: 	Sequelize.STRING,
+					en:		Sequelize.STRING,
+					jp:		Sequelize.STRING,
 					line_no: 	Sequelize.INTEGER
 				}, {timestamps: false});
 

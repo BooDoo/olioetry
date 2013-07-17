@@ -115,7 +115,7 @@ ul{
 	padding-top:40px;
 	padding-bottom:40px;
 	padding-right:15px;
-	width:245px;
+	width:350px;
 	background-color:#EFEFEF;
 	float:left;
 }
@@ -158,7 +158,7 @@ ul{
 	position:fixed;
 	left:0px;
 	top:42px;
-	width:300px;
+	width:400px;
 	height:1000px;
 	background-color:#EFEFEF;
 	z-index:-1;
@@ -183,7 +183,7 @@ ul{
 
 /*------------------------------------------------poem styling--------------------------------------------------*/
 
-.poem{
+.poem {
 	font-family:Georgia, "Times New Roman", Times, serif;
 	font-style:italic;
 	font-size:22px;
@@ -200,37 +200,7 @@ ul{
 	border-top:1px #CCC solid;
 }
 
-.haughtyButton{
-	width:30px;
-	display:inline-block;
-	margin-right:15px;
-	margin-bottom:30px;
-	cursor: pointer;
-}
-
-.naughtyButton{
-	width:30px;
-	display:inline-block;
-	margin-right:15px;
-	margin-bottom:30px;
-	cursor: pointer;
-}
-
-.naughtyButton h3{
-	text-align:center;
-	color:#DD916A;
-	font-style:normal;
-	font-weight:bold;
-}
-
-.haughtyButton h3{
-	text-align:center;
-	color:#6BADDE;
-	font-style:normal;
-	font-weight:bold;
-}
-
-#naughtyContent{
+#enjpContent{
 	position:absolute;
 	left:300px;
 	top:85px;
@@ -259,7 +229,7 @@ ul{
 /*----------------------------------------------composer styling------------------------------------------------*/
 #composeModal{
 	position:fixed;
-	left:300px;
+	left:400px;
 	top:85px;
 	height:400px;
 	width:700px;
@@ -468,14 +438,62 @@ ul{
 }
 
 /* Only show English or Japanese versions, not both */
-.e .j,
-.j .e {
+.en .jp,
+.jp .en {
         display:none;
 }
 
-/* Fonts for Japanese lines: */
-.j {
+/* Unless we're being EXCEPTIONAL! */
+.force
+{
+        display:block !important;
+}
+
+/* Fonts for Japanese lines and toggleButton: */
+.jp, .toggleButton {
         font-family:    "メイリオ", Meiryo,
                         "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",
                         Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+/* Style the language toggle action button */
+.toggleButton {
+        width: 5em;
+        padding: .5em;
+        text-align:center;
+        background-color:#CCCCCC;
+        cursor:pointer;
+        -webkit-border-radius: 2em;
+        -moz-border-radius: 2em;
+        border-radius: 2em;
+}
+
+.toggleButton > span {
+        padding: .2em;
+}
+
+/* White-out the inactive language,  */
+div.contentBox.en .toggleButton > span:last-child {
+        color: #FFFFFF;
+}
+
+div.contentBox.jp .toggleButton > span:first-child {
+        color: #FFFFFF;
+}
+
+/*Swap on hover to indicate click behavior */
+div.contentBox.en .toggleButton:hover > span:first-child {
+        color: #FFFFFF;
+}
+
+div.contentBox.en .toggleButton:hover > span:last-child {
+        color: #000000;
+}
+
+div.contentBox.jp .toggleButton:hover > span:first-child {
+        color: #000000;
+}
+
+div.contentBox.jp .toggleButton:hover > span:last-child {
+        color: #FFFFFF;
 }

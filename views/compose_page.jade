@@ -17,18 +17,10 @@ block content
 
 	#prettyTitleBox
 
-	#wordTitlebox.titlebox.wordTitlebox.hidden
+	#wordTitlebox.titlebox.wordTitlebox
 		#thematicWords
-			h3.titleLine
-			.wordList
-
-		#commonWords
-			h3.titleLine
-			.wordList
-
-	.titlebox.realTitlebox
-		h3 Titles
-		ul.titleList
+			input#filterBox
+			.wordList(class=lang)
 
 	#composeModal
 		.contentBox
@@ -51,7 +43,7 @@ block content
 			.contentOptions
 			.content
 				#composerDragDrop
-					table.composerTable
+					table.composerTable(class=lang)
 						tr.composerLine
 							td.composerLineNumber 1.
 							td.composerLineContent

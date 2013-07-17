@@ -20,7 +20,7 @@ block content
 			img(src="/images/Button_Compose_Hover.png")
 			h4 COMPOSE
 
-	#naughtyContent
+	#enjpContent
 
 		.contentBox
 			.contentOptions
@@ -36,7 +36,7 @@ block content
 		each poem, i in poems
 			.poemPadder
 
-			.contentBox(id="#{poem.id}")
+			.contentBox(id=poem.id,class=lang)
 				.contentOptions
 					h1 ##{i + 1}
 
@@ -44,17 +44,15 @@ block content
 					a.poem-link(href="/poem/#{poem.id}")
 						h1= poem.title
 					h3 by #{poem.author}
-					a.poem-link(href="/poem/#{poem.id}")
-						p.poem
-							each line in poem.lines
-								- line = bake_line(line)
-								| #{line}
-								br
+					.poem
+						each line in poem.lines
+							.line
+								span.en= line.en
+								span.jp= line.jp
 
-					.haughtyButton
-						img(src="/images/Button_Haughty.png")
-						h3= poem.haughty
-
-					.naughtyButton
-						img(src="/images/Button_Naughty.png")
-						h3= poem.naughty
+					.toggleButton
+						//img(src="/images/Button_Haughty.png")
+						span
+							| EN
+						span
+							| 日本

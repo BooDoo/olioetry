@@ -36,7 +36,7 @@ Poem.prototype.persist = function persist() {
 		dbpoem.naughty = this.naughty
 
 		dbpoem.save()
-      .success(function(res) {console.log('Successfully saved poem with id', this.id)})
+      .success(function(res) {console.log('Successfully saved poem with id', dbpoem.id)})
       .error(function(err) {throw err});
 
 		//if we haven't been persisted before, create new line records
@@ -44,7 +44,9 @@ Poem.prototype.persist = function persist() {
 			this.lines.forEach(function(line, i) {
 				var dbline = Db.Line.build();
 				dbline.poem = dbpoem;
-				dbline.text = line.join('\n');
+        // dbline.text = line.join('\n');
+				dbline.en = line.en;
+        dbline.jp = line.jp;
 				dbline.line_no = i;
         dbpoem.addLine(dbline);
       });
@@ -56,8 +58,7 @@ Poem.depersist = function depersist(dbmodel) {
 
   dbmodel.getLines().success(function(dblines) {
     dblines.forEach(function(dbline) {
-      var line = dbline.text.split('\n');
-      lines[dbline.line_no] = line;
+      lines[dbline.line_no] = {en: dbline.en, jp: dbline.jp};
     });
   });
 

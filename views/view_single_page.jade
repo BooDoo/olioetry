@@ -17,21 +17,20 @@ block content
 
 	each poem in poems
 		#singlePoem
-			.contentBox
+			.contentBox(class=lang)
 				.contentOptions
 
 				.content
 					h1= poem.title
 					h3 by #{poem.author}
-					p.poem
+					.poem
 						each line in poem.lines
-							- line = bake_line(line)
-							| #{line}
-							br
-					.haughtyButton
-						img(src="/images/Button_Haughty.png")
-						h3= poem.haughty
-
-					.naughtyButton
-						img(src="/images/Button_Naughty.png")
-						h3= poem.naughty
+							.line
+								span.en= line.en
+								span.jp= line.jp
+					.toggleButton
+						//img(src="/images/Button_Haughty.png")
+						span
+							| EN
+						span
+							| 日本
