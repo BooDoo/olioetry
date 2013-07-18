@@ -37,7 +37,9 @@ block content
 		.contentBox
 			.contentOptions
 			.content
-				h1#composeTitle.select-title Select a Title
+				h1#composeTitle.select-title
+					span#poemTitle.untitled(contenteditable="true")
+						| untitled
 				h3#composeAuthor
 					| by&nbsp;
 					span#authorName.anonymous(contenteditable="true")

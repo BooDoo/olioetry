@@ -301,12 +301,13 @@ ul{
 	color: #BBB;
 }
 
-#composeTitle{
+#poemTitle.titled{
 	color: black;
 }
 
-#composeTitle.select-title{
+#poemTitle.untitled{
 	color: #BBB;
+        cursor: pointer;
 }
 
 #authorName.anonymous, #authorEditHint {

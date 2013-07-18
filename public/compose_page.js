@@ -138,6 +138,14 @@ function startEditingAuthor() {
 	return true;
 }
 
+function startEditingTitle() {
+	var dom = $("#poemTitle")[0];
+	dom.focus();
+	window.getSelection().selectAllChildren(dom);
+
+	return true;
+}
+
 function buildWord(titlebox, word) {
 	var magnet = $('<div draggable="true" class="words"><h1 class="magnet en" /><h1 class="magnet jp"></div>');
 	magnet.children(".magnet.en").text(word.e);
@@ -172,6 +180,11 @@ function authorChanged() {
 	$("#authorEditHint").addClass("hidden");
 }
 
+function titleChanged() {
+	$("#poemTitle").removeClass("untitled");
+	$("#poemTitle").addClass("titled");
+}
+
 function submit() {
 	if (!canSave()) {
 		return;
@@ -185,7 +198,7 @@ function submit() {
 	});
 
 	var poem = {
-		title: $("#composeTitle").text() || "Untitled",
+		title: $("#poemTitle").text() || "untitled",
 		author: $("#authorName").text(),
 		lines: lines
 	};
@@ -222,6 +235,9 @@ $(window).load(function () {
 
 	$("#authorName").on("focus", startEditingAuthor);
 	$("#authorEditHint").click(startEditingAuthor);
+
+        $("#poemTitle").on("focus", startEditingTitle);
+        $("#poemTitle").on("keyup", titleChanged);
 
 	$("#filterBox").on("keyup", magnetFilter);
 
