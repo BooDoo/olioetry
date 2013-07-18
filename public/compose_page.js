@@ -18,7 +18,6 @@ function handleMagnetDragStart(e) {
 	e.originalEvent.dataTransfer.setData('text/plain', this.innerText); //TODO: Go up a level?
 	e.originalEvent.dataTransfer.effectAllowed = 'move';
 	draggingMagnet = this;
-	$(draggingMagnet).children().removeClass("hidden force");
 }
 
 function handleMagnetDragEnd(e) {
@@ -46,6 +45,12 @@ function handleMagnetDragOver(e) {
 function toggleForce() {
         $(this).removeClass("force").addClass("hidden");
         $(this).siblings().removeClass("hidden").addClass("force");
+	if ($(this, 'table').length) {
+		var cousins = $("." + $(this).siblings().get(0).classList[1], '.composerTable');
+		console.log(cousins.length);
+		if (cousins.length === cousins.map(function () {if ($(this).hasClass("force")) return true;}).length)
+			togglePoemLanguage.call($('#composeModal .toggleButton')[0]);
+	}
 }
 
 function canSave() {
@@ -73,6 +78,7 @@ function dropIntoComposer(e) {
 	if ($(draggingMagnet).closest(".wordList").length > 0) {
 		console.log("dragging from word list; cloning");
 		insertMagnet = $(draggingMagnet).clone(true);
+		$(insertMagnet).children().removeClass("hidden force");
 	} else if ($(draggingMagnet).closest("#composerDragDrop").length > 0) {
 		console.log("dragging from composer; moving");
 		insertMagnet = $(draggingMagnet);
