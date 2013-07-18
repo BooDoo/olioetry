@@ -100,7 +100,7 @@ app.get('/api/newpoem', function(req, res) {
 
 app.post('/api/submitpoem', function(req, res) {
   var poem = req.body,
-      next_id = (_.max(POEMS,"id").id || -1) + 1;
+      next_id = (_.max(POEMS,"id").id || 0) + 1;
 
   if (_.all(poem.lines, _.isEmpty)) {res.send(null,204); return;}
 
