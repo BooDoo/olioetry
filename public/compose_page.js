@@ -37,7 +37,7 @@ function handleMagnetDragOver(e) {
 
 		return false;
 	} else {
-		console.log("non-composer/wordList dragOver");
+		//console.log("non-composer/wordList dragOver");
 		return true;
 	}
 }
@@ -69,6 +69,7 @@ function dropIntoComposer(e) {
 	var dropX, dropY;
 	dropX = e.originalEvent.x;
 	dropY = e.originalEvent.y;
+        doSwap = false;
 
 	var realDropTarget = $(e.target).closest(".composerLineContent");
 	var insertMagnet = undefined;
@@ -76,32 +77,29 @@ function dropIntoComposer(e) {
 	// if we're dragging the word from the word list, clone it
 	// otherwise, move it.
 	if ($(draggingMagnet).closest(".wordList").length > 0) {
-		console.log("dragging from word list; cloning");
+		//console.log("dragging from word list; cloning");
 		insertMagnet = $(draggingMagnet).clone(true);
 		$(insertMagnet).children().removeClass("hidden force");
 	} else if ($(draggingMagnet).closest("#composerDragDrop").length > 0) {
-		console.log("dragging from composer; moving");
+		//console.log("dragging from composer; moving/swapping");
+                doSwap = true;
 		insertMagnet = $(draggingMagnet);
 	} else {
-		console.log("dragging from somewhere else?");
+		//console.log("dragging from somewhere else?");
 	}
 
-	for (var childIndex = 0; childIndex < realDropTarget.children().length; childIndex++) {
-		var child = realDropTarget.children()[childIndex];
+        if (realDropTarget.children().length) {
+                //console.log("Already a line here...");
+                if (doSwap) {
+                        //console.log("...swapping lines.");
+                        realDropTarget.children().appendTo($(draggingMagnet).parent());
+                }
+                else {
+                        //console.log("...replacing it.");
+                        realDropTarget.children().remove();
+                }
+        }
 
-		var leftCoord = $(child).offset().left + ($(child).width() / 2);
-
-		if (dropX < leftCoord) {
-			console.log("drop X (" + dropX + ") before child " + childIndex + " middle (" + leftCoord + ")");
-			$(child).before(insertMagnet);
-			draggingMagnet = undefined;
-			return false;
-		} else {
-			console.log("drop X (" + dropX + ") after child " + childIndex + " middle (" + leftCoord + ")");
-		}
-	}
-
-	console.log("drop X (" + dropX + ") after all children, appending");
 	realDropTarget.append(insertMagnet);
 	draggingMagnet = undefined;
 
@@ -112,15 +110,15 @@ function dropIntoComposer(e) {
 
 function dropIntoWordList(e) {
 	if ($(draggingMagnet).closest(".wordList").length > 0) {
-		console.log("moving from word list; do nothing");
+		//console.log("moving from word list; do nothing");
 		e.preventDefault();
 	} else if ($(draggingMagnet).closest("#composerDragDrop").length > 0) {
-		console.log("moving from composer; delete");
+		//console.log("moving from composer; delete");
 		alreadySaved = false;
 		$(draggingMagnet).remove();
 		e.preventDefault();
 	} else {
-		console.log("moving from somewhere else?");
+		//console.log("moving from somewhere else?");
 	}
 
 	updateSaveState();
