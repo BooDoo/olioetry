@@ -91,8 +91,7 @@ app.get('/api/newpoem', function(req, res) {
     var words = ENJPWORDS,
         result = {
             id: 0, //Why 0?
-            words: words,
-            common_words: []
+            words: _.shuffle(words)
         };
 
     res.send(JSON.stringify(result));
