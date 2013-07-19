@@ -16,12 +16,14 @@ var sqlite = require('sqlite3'),
 					id: 		{type: Sequelize.INTEGER, primaryKey:true},
 					title: 		Sequelize.STRING,
 					author: 	Sequelize.STRING,
+					lang:			Sequelize.STRING
 				}, {timestamps: false});
 
 				this.Line = DB.define('Line', {
 					id: 		{type: Sequelize.INTEGER, primaryKey:true, autoIncrement: true},
 					en:		Sequelize.STRING,
 					jp:		Sequelize.STRING,
+					lang:	Sequelize.STRING,
 					line_no: 	Sequelize.INTEGER
 				}, {timestamps: false});
 

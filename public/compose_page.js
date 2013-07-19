@@ -47,7 +47,6 @@ function toggleForce() {
         $(this).siblings().removeClass("hidden").addClass("force");
 	if ($(this, 'table').length) {
 		var cousins = $("." + $(this).siblings().get(0).classList[1], '.composerTable');
-		console.log(cousins.length);
 		if (cousins.length === cousins.map(function () {if ($(this).hasClass("force")) return true;}).length)
 			togglePoemLanguage.call($('#composeModal .toggleButton')[0]);
 	}
@@ -188,16 +187,20 @@ function submit() {
 		return;
 	}
 
-	var lines = [];
+	var poemLang = $("#composeModal").hasClass("jp") ? "jp" : "en",
+            lines = [];
 
 	$('.composerLineContent').each(function (index) {
-		//MAYBE: Support multiple tokens on a line?
-		lines[index] = {en: $('.en', this).text(), jp: $('.jp', this).text()};
+                //Check if forced language! Store in lang
+                var forced = $(".force", this),
+                    lang = forced.length ? forced.get(0).classList[1] : poemLang;
+		lines[index] = {en: $('.en', this).text(), jp: $('.jp', this).text(), lang: lang};
 	});
 
 	var poem = {
 		title: $("#poemTitle").text() || "untitled",
 		author: $("#authorName").text(),
+                lang: poemLang,
 		lines: lines
 	};
 
@@ -210,7 +213,6 @@ function submit() {
 
 function magnetFilter() {
 	var criterion = new RegExp($(this).val().replace(/ +/g, ' ').replace(/\s+$/, "(?:\\s|$)").replace(/^\s/, "(?:^|\\s)").toLowerCase());
-	console.log(criterion);
 	$magnets.show().filter(function() {
 		var enText = $(".en", this).text().replace(/\s+/g, ' ').toLowerCase();
 		var jpText = $(".jp", this).text().replace(/\s+/g, ' ').toLowerCase();

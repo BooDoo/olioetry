@@ -104,7 +104,7 @@ app.post('/api/submitpoem', function(req, res) {
 
   if (_.all(poem.lines, _.isEmpty)) {res.send(null,204); return;}
 
-  poem = new Poem(next_id, poem.title, poem.author, poem.lines);
+  poem = new Poem(next_id, poem.title, poem.author, poem.lines, poem.lang);
   POEMS[next_id] = poem;
   poem.persist();
   console.log(POEMS);

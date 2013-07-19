@@ -1,12 +1,11 @@
 var dbmodels = require('./dbmodels.js'),
-    Poem = function(id, title, author, lines) {
-      if (!(this instanceof Poem)) {return new Poem(id, title, author, lines);}
+    Poem = function(id, title, author, lines, lang) {
+      if (!(this instanceof Poem)) {return new Poem(id, title, author, lines, lang);}
   		this.id = id;
       this.title = title;
       this.author = author;
       this.lines = lines;
-
-      this.haughty = this.naughty = 0;
+      this.lang = lang;
       this.persisted = null;
       return this;
     };
@@ -47,6 +46,7 @@ Poem.prototype.persist = function persist() {
         // dbline.text = line.join('\n');
 				dbline.en = line.en;
         dbline.jp = line.jp;
+        dbline.lang = line.lang;
 				dbline.line_no = i;
         dbpoem.addLine(dbline);
       });
@@ -58,7 +58,7 @@ Poem.depersist = function depersist(dbmodel) {
 
   dbmodel.getLines().success(function(dblines) {
     dblines.forEach(function(dbline) {
-      lines[dbline.line_no] = {en: dbline.en, jp: dbline.jp};
+      lines[dbline.line_no] = {en: dbline.en, jp: dbline.jp, lang: dbline.lang};
     });
   });
 

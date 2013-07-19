@@ -32,11 +32,11 @@ block content
 					img(src="/images/Title_Naughty.png")
 				- else if (header == 'new')
 					img(src="/images/Title_New_Poems.png")
-		- console.log(poems);
 		each poem, i in poems
+			- poem.lang = poem.lang || lang
 			.poemPadder
 
-			.contentBox(id=poem.id,class=lang)
+			.contentBox(id=poem.id,class=poem.lang)
 				.contentOptions
 					h1 ##{i + 1}
 
@@ -46,9 +46,14 @@ block content
 					h3 by #{poem.author}
 					.poem
 						each line in poem.lines
+							-line.lang = line.lang || poem.lang
 							.line
-								span.en= line.en
-								span.jp= line.jp
+								if line.lang === poem.lang
+									span.en= line.en
+									span.jp= line.jp
+								else
+									span(class=poem.lang + " hidden")= line[poem.lang]
+									span(class=line.lang + " force")= line[line.lang]
 
 					.toggleButton
 						span

@@ -16,8 +16,9 @@ block content
 				a(href="/poems/naughtiest") Naughty
 
 	each poem in poems
+		- poem.lang = poem.lang || lang;
 		#singlePoem
-			.contentBox(class=lang)
+			.contentBox(class=poem.lang)
 				.contentOptions
 
 				.content
@@ -25,9 +26,14 @@ block content
 					h3 by #{poem.author}
 					.poem
 						each line in poem.lines
+							-line.lang = line.lang || poem.lang;
 							.line
-								span.en= line.en
-								span.jp= line.jp
+								if line.lang === poem.lang
+									span.en= line.en
+									span.jp= line.jp
+								else
+									span(class=poem.lang + " hidden")= line[poem.lang]
+									span(class=line.lang + " force")= line[line.lang]
 					.toggleButton
 						span
 							| EN
