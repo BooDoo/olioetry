@@ -200,6 +200,10 @@ ul{
 	border-top:1px #CCC solid;
 }
 
+.poem .line {
+        cursor:pointer;
+}
+
 #enjpContent{
 	position:absolute;
 	left:300px;
@@ -207,7 +211,7 @@ ul{
 	width:700px;
 }
 
-.contentOptions h1{
+.contentOptions h1, .contentOptions h1 *{
 	color:#BBBBBC;
 	font-weight:normal;
 }
@@ -424,6 +428,10 @@ ul{
 
 .poem-link{
 	text-decoration: none;
+}
+
+.poem-link:hover{
+        color: #000000;
 }
 
 .pageMoveButton{
