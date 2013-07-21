@@ -20,14 +20,15 @@ block content
 					h3 by #{poem.author}
 					.poem
 						each line in poem.lines
-							-line.lang = line.lang || poem.lang
-							.line
-								if line.lang === poem.lang
-									span.en= line.en
-									span.jp= line.jp
-								else
-									span(class="#{poem.lang} hidden")= line[poem.lang]
-									span(class="#{line.lang} force")= line[line.lang]
+							unless !line.en
+								-line.lang = line.lang || poem.lang
+								.line
+									if line.lang === poem.lang
+										span.en= line.en
+										span.jp= line.jp
+									else
+										span(class="#{poem.lang} hidden")= line[poem.lang]
+										span(class="#{line.lang} force")= line[line.lang]
 
 					.toggleButton
 						span
