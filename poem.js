@@ -31,24 +31,22 @@ Poem.prototype.persist = function persist() {
 
 		dbpoem.title = this.title
 		dbpoem.author = this.author
-		dbpoem.haughty = this.haughty
-		dbpoem.naughty = this.naughty
+		dbpoem.lang = this.lang
 
 		dbpoem.save()
-      .success(function(res) {console.log('Successfully saved poem with id', dbpoem.id)})
-      .error(function(err) {throw err});
+			.success(function(res) {console.log('Successfully saved poem with id', dbpoem.id)})
+			.error(function(err) {throw err});
 
 		//if we haven't been persisted before, create new line records
 		if (!was_persisted) {
 			this.lines.forEach(function(line, i) {
 				var dbline = Db.Line.build();
 				dbline.poem = dbpoem;
-        // dbline.text = line.join('\n');
 				dbline.en = line.en;
-        dbline.jp = line.jp;
-        dbline.lang = line.lang;
+                dbline.jp = line.jp;
+                dbline.lang = line.lang;
 				dbline.line_no = i;
-        dbpoem.addLine(dbline);
+                dbpoem.addLine(dbline);
       });
 		}
 }
@@ -62,9 +60,7 @@ Poem.depersist = function depersist(dbmodel) {
     });
   });
 
-  var result = new Poem(dbmodel.id, dbmodel.title, dbmodel.author, lines);
-  result.haughty = dbmodel.haughty;
-  result.naughty = dbmodel.naughty;
+  var result = new Poem(dbmodel.id, dbmodel.title, dbmodel.author, lines, dbmodel.lang);
   result.persisted = dbmodel;
 
   return result;
