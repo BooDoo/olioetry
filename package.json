@@ -1,7 +1,7 @@
 {
-  "name": "enjp",
-  "description": "Bilingual magnetic poetry (based on haughtyornaughty.com)",
-  "version": "0.0.1",
+  "name": "olioetry",
+  "description": "Bilingual magnetic poetry (derived from haughtyornaughty.com)",
+  "version": "0.1.0",
   "homepage": "https://github.com/BooDoo/words",
   "author": {
     "name": "Joel McCoy",
@@ -32,7 +32,7 @@
     "node": ">=0.8.0",
     "npm": ">=1.1.0"
   },
-  "subdomain": "enjp",
+  "subdomain": "olioetry",
   "scripts": {
     "start": "api.js"
   }
