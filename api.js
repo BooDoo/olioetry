@@ -45,38 +45,6 @@ app.use(express.session());
 //app.use(passport.session()); //For use if running passport auth
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/api/haughtify/:id', function(req, res) {
-  var poemId = req.params.id,
-      poem = POEMS[poemId],
-      result;
-
-      if (!poem) {
-        res.send(null, 204);
-      }
-      else {
-        poem.haughty += 1;
-        poem.persist();
-        result = {haughty: poem.haughty, naughty: poem.naughty};
-        res.send(JSON.stringify(result));
-      }
-});
-
-app.post('/api/naughtify/:id', function(req, res) {
-  var poemId = req.params.id,
-      poem = POEMS[poemId],
-      result;
-
-      if (!poem) {
-        res.send(null, 204);
-      }
-      else {
-        poem.naughty += 1;
-        poem.persist();
-        result = {haughty: poem.haughty, naughty: poem.naughty};
-        res.send(JSON.stringify(result));
-      }
-});
-
 app.get('/api/themes', function(req, res) {
     var themes = {};
 
@@ -110,78 +78,65 @@ app.post('/api/submitpoem', function(req, res) {
   res.send(next_id, 200);
 });
 
-app.get('/api/poem/:id', function(req, res) {
-  var poem_id = req.params.id,
-      poem = POEMS[poem_id];
-
-  if (poem) {
-    res.send(poem.toJson());
-  }
-  else {
-    res.send(null, 204);
-  }
-});
-
 app.get('/', function(req, res) {
   res.render('land_page', {lang: LANG});
 });
 
-app.get('/compose', function(req, res) {
-  res.render('compose_page', {lang: LANG});
+app.get('/:lang', function(req, res) {
+  var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
+      lang = req.params.lang || LANG;
+  console.log("In api.js, lang:",lang);
+
+  res.render('view_page', {lang: lang, poems: result, header: 'new',
+                            bake_line: viewHelp.bakeLine});
 });
 
-app.get('/poem/:id', function(req, res) {
+app.get('/:lang/poems', function(req, res) {
+  var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
+      lang = req.params.lang || LANG;
+
+  res.render('view_page', {lang: lang, poems: result, header: 'new',
+                            bake_line: viewHelp.bakeLine});
+});
+
+app.get('/:lang/compose', function(req, res) {
+  var lang = req.params.lang || LANG;
+  res.render('compose_page', {lang: lang});
+});
+
+app.get('/:lang/poem/:id', function(req, res) {
   var poemId = req.params.id,
       poem   = POEMS[poemId],
+      lang   = req.params.lang || LANG,
       result = [poem];
+      console.log("in api.js, poem.lang:",result[0].lang);
 
       if (!poem) {
         res.send(null, 404)
       }
       else {
-        res.render('view_single_page', {lang: LANG, poems: result, header: 'new',
+        res.render('view_single_page', {lang: lang, poems: result, header: 'new',
                                         bake_line: viewHelp.bakeLine});
       }
 });
 
-app.get('/poems', function(req, res) {
-  var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value();
-
-  res.render('view_page', {lang: LANG, poems: result, header: 'new',
-                            bake_line: viewHelp.bakeLine});
-});
-
-app.get('/poems/haughtiest', function(req, res) {
-  var result = _(POEMS).sortBy('haughty').last(VIEW_PAGE_LENGTH).reverse().value();
-
-  res.render('view_page', {lang: LANG, poems: result, header: 'haughty',
-                            bake_line: viewHelp.bakeLine});
-});
-
-app.get('/poems/naughtiest', function(req, res) {
-  var result = _(POEMS).sortBy('naughty').last(VIEW_PAGE_LENGTH).reverse().value();
-
-  res.render('view_page', {lang: LANG, poems: result, header: 'naughty',
-                            bake_line: viewHelp.bakeLine});
-});
-
 if (HN_VIEW_API) {
-  app.get('/api/newest', function(req, res) {
+  app.get('/api/poems', function(req, res) {
     var result = _(POEMS).sortBy('id').last(10).reverse().value();
 
         res.send(JSON.stringify(result));
   });
 
-  app.get('/api/haughtiest', function(req, res) {
-    var result = _(POEMS).sortBy('haughty').last(10).reverse().value();
+  app.get('/api/poem/:id', function(req, res) {
+    var poem_id = req.params.id,
+        poem = POEMS[poem_id];
 
-        res.send(JSON.stringify(result));
-  });
-
-  app.get('/api/naughtiest', function(req, res) {
-    var result = _(POEMS).sortBy('naughty').last(10).reverse().value();
-
-        res.send(JSON.stringify(result));
+    if (poem) {
+      res.send(poem.toJson());
+    }
+    else {
+      res.send(null, 204);
+    }
   });
 }
 
