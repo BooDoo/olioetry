@@ -4,7 +4,6 @@ var express     = require('express'),
     path        = require('path'),
     fs          = require('fs'),
     _           = require('lodash'),
-    Theme       = require('./theme.js'),
     Poem        = require('./poem.js'),
     Db          = require('./dbmodels.js'),
     viewHelp    = require('./view_page_helpers.js'),
@@ -13,9 +12,6 @@ var express     = require('express'),
     //allowAll    = function(req, res, next) {next();}, //to auth
     HN_VIEW_API = true,
     VIEW_PAGE_LENGTH = 20,
-    allThemes   = Theme.loadAll('./wordlists'),
-    THEMES      = allThemes.themes,
-    COMMON_THEME= allThemes.common_theme,
     ENJPWORDS   = require('../splitPhrases.js'),
     LANG        = 'en',
     POEMS       = {};
@@ -44,16 +40,6 @@ app.use(express.session());
 //app.use(passport.initialize());
 //app.use(passport.session()); //For use if running passport auth
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/api/themes', function(req, res) {
-    var themes = {};
-
-    _.each(THEMES, function(theme, i) {
-        themes[i + 1] = theme.theme;
-    });
-
-    res.send(JSON.stringify(themes));
-});
 
 app.get('/api/newpoem', function(req, res) {
     var words = ENJPWORDS,
