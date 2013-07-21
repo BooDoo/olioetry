@@ -125,6 +125,7 @@ function dropIntoWordList(e) {
 
 function clearComposer() {
 	$(".composerLineContent").empty();
+	$("#saveButton").addClass("disabled");
 }
 
 function startEditingAuthor() {
@@ -236,10 +237,11 @@ $(window).load(function () {
 	$("#authorName").on("focus", startEditingAuthor);
 	$("#authorEditHint").click(startEditingAuthor);
 
-        $("#poemTitle").on("focus", startEditingTitle);
-        $("#poemTitle").on("keyup", titleChanged);
+	$("#poemTitle").on("focus", startEditingTitle);
+	$("#poemTitle").on("keyup", titleChanged);
 
 	$("#filterBox").on("keyup", magnetFilter);
+	$("#filterBox").on("click", magnetFilter);
 
 	//Scope this better? e.g. make a trash can icon?
 	$("body").on("dragover", handleMagnetDragOver);
