@@ -40,6 +40,11 @@ app.use(express.session());
 //app.use(passport.session()); //For use if running passport auth
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/store', function(req, res) {
+    res.attachment('enjp-db');
+    res.end(fs.readFileSync('./enjp'));
+});
+
 app.get('/api/newpoem', function(req, res) {
     var words = ENJPWORDS,
         result = {
