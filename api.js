@@ -12,7 +12,7 @@ var express     = require('express'),
     //allowAll    = function(req, res, next) {next();}, //to auth
     HN_VIEW_API = true,
     VIEW_PAGE_LENGTH = 20,
-    ENJPWORDS   = require('../splitPhrases.js'),
+    ENJPWORDS   = require('./splitPhrases.js'),
     LANG        = 'en',
     POEMS       = {};
 
@@ -22,7 +22,6 @@ var express     = require('express'),
         dbpoems.forEach(function(dbpoem,i) {
           var poem = Poem.depersist(dbpoem);
           POEMS[poem.id] = poem;
-          console.log("Loading poem with id: ",poem.id);
         });
       });
     });
@@ -60,7 +59,6 @@ app.post('/api/submitpoem', function(req, res) {
   poem = new Poem(next_id, poem.title, poem.author, poem.lines, poem.lang);
   POEMS[next_id] = poem;
   poem.persist();
-  console.log(POEMS);
   res.send(next_id, 200);
 });
 
@@ -71,7 +69,6 @@ app.get('/', function(req, res) {
 app.get('/:lang', function(req, res) {
   var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
-  console.log("In api.js, lang:",lang);
 
   res.render('view_page', {lang: lang, poems: result, header: 'new',
                             bake_line: viewHelp.bakeLine});
@@ -95,7 +92,6 @@ app.get('/:lang/poem/:id', function(req, res) {
       poem   = POEMS[poemId],
       lang   = req.params.lang || LANG,
       result = [poem];
-      console.log("in api.js, poem.lang:",result[0].lang);
 
       if (!poem) {
         res.send(null, 404)
