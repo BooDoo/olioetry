@@ -1,26 +1,15 @@
 extends base
 
 append head
-	script(src="compose_page.js")
+	script(src="/compose_page.js")
 
 block content
-	#header
-		a(href="/")
-			img(src="images/HandN_Logo_Small.png")
-		ul
-			li
-				a(href="/poems") New
-			li
-				a(href="/poems/haughtiest") Haughty
-			li
-				a(href="/poems/naughtiest") Naughty
-
 	#prettyTitleBox
 
 	#wordTitlebox.titlebox.wordTitlebox(class=lang)
 		#thematicWords
 			#listHeader
-				input#filterBox
+				input#filterBox(type="search",results="0")
 				.toggleButton
 					span
 						| EN
@@ -32,18 +21,19 @@ block content
 		.contentBox
 			.contentOptions
 			.content
-				img(src="images/Title_Compose.png")
-
-		.contentBox
-			.contentOptions
-			.content
 				h1#composeTitle.select-title
 					span#poemTitle.untitled(contenteditable="true")
-						| untitled
+						if lang == 'en'
+							| untitled
+						else
+							| 無題
 				h3#composeAuthor
 					| by&nbsp;
 					span#authorName.anonymous(contenteditable="true")
-						| anonymous
+						if lang == 'en'
+							| anonymous
+						else
+							| アノニマス
 
 					span#authorEditHint &nbsp;(edit)
 
@@ -64,6 +54,9 @@ block content
 						tr.composerLine
 							td.composerLineNumber 4.
 							td.composerLineContent
+						tr.composerLine
+							td.composerLineNumber 5.
+							td.composerLineContent
 
 		.contentBox
 			.contentOptions
@@ -73,6 +66,14 @@ block content
 						| EN
 					span
 						| 日本
-				#saveButton.disabled SAVE
-				#clearButton CLEAR
+				#saveButton.disabled
+					if lang == 'en'
+						| SAVE
+					else
+						| 保存
+				#clearButton
+					if lang == 'en'
+						| CLEAR
+					else
+						| 消去
 				#savedMessage.hidden Saved.

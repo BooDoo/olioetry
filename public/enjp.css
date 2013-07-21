@@ -88,8 +88,9 @@ p{
 	line-height:40px;
 	letter-spacing:2px;
 }
-#header img{
-	float:left;
+
+#header a:hover{
+        color:black;
 }
 
 ul{
@@ -248,34 +249,43 @@ ul{
 
 #composerDragDrop{
 	width:auto;
-	height:190px;
+	height:225px;
 	background:#EFEFEF;
 }
 
 #saveButton{
 	float:left;
 	font-family:"Courier New", Courier, monospace;
-	color:white;
+	color:#979DAA;
 	font-size:14px;
 	font-weight:bold;
 	line-height:40px;
 	letter-spacing:2px;
-	background:#6BADDE;
+	background:#BBBBBB;
 	padding-left:15px;
 	padding-right:15px;
 	margin-right:15px;
 	cursor: pointer;
 }
 
+#saveButton:hover{
+        color:black;
+}
+
 #saveButton.disabled{
-	background:#BBBBBB;
+	background:white;
+        color:white;
 	cursor: not-allowed;
+}
+
+#saveButton.disabled:hover{
+        color:white;
 }
 
 #clearButton{
 	float:left;
 	font-family:"Courier New", Courier, monospace;
-	color:white;
+	color:#979DAA;
 	font-size:14px;
 	font-weight:bold;
 	line-height:40px;
@@ -285,6 +295,10 @@ ul{
 	padding-right:15px;
 	margin-right:15px;
 	cursor: pointer;
+}
+
+#clearButton:hover {
+        color:black;
 }
 
 /*Colin's hacks*/
@@ -330,33 +344,26 @@ ul{
 
 /*----------------------------------------------Landing styling------------------------------------------------*/
 
-
-#HaughtyMan{
-	position:absolute;
-	top:50%;
-	margin-top:-400px;
-	left:12%;
-	margin-left:-100px;
-	overflow:visible;
+#titleBox {
+        color:#000000;
+        text-align:center;
+        font-size:52pt;
 }
 
-#NaughtyMan{
-	position:absolute;
-	top:50%;
-	margin-top:-400px;
-	right:12%;
-	margin-right:-150px;
-	overflow:visible;
+#titleBox .en{
+        display:block;
+        margin-bottom:8px;
+        font-weight:bolder;
+        letter-spacing:28px;
+}
+
+#titleBox .jp{
+        display:block;
+        letter-spacing:44px;
+        font-weight:bolder;
 }
 
 #landingBox{
-	position:absolute;
-	top:50%;
-	margin-top:-300px;
-	height:600px;
-	width:600px;
-	left:50%;
-	margin-left:-300px;
 	overflow:visible;
 }
 
@@ -381,8 +388,19 @@ ul{
 	text-align:center;
 }
 
+.logo {
+        width:100px;
+        height:60px;
+        float:left;
+        color:black;
+        font-size: 14px;
+        font-family: "メイリオ", Meiryo,
+                        "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",
+                        Osaka, Verdana, Helcetica, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
 #landingButtonBox{
-	width:400px;
+	width:530px;
 	height:50px;
 	margin-top:50px;
 	margin-left:auto;
@@ -397,17 +415,34 @@ ul{
 	width:160px;
 }
 
-#landingButtonBox img{
-	float:left;
+#landingButtonBox .jp{
+	float:right;
 }
 
-#landingJudgeButton{
+#landingButtonBox a{
+        text-decoration:none;
+        color:#979DAA;
+}
+
+#landingButtonBox span{
+	font-family:Verdana, Geneva, Helvetica, Arial, sans-serif;
+	font-size:22px;
+	font-weight:bold;
+	line-height:30px;
+}
+
+#landingButtonBox span:hover{
+        color:black;
+        cursor:pointer;
+}
+
+#landingReadButton{
 	background-color:#DDD;
 	padding:10px;
 	height:30px;
+        margin-right: 42px;
 	float:right;
 	width:160px;
-	cursor: pointer;
 }
 
 #ComposeButton{
@@ -464,7 +499,7 @@ ul{
 
 #listHeader #filterBox {
         float:left;
-        height:25px;
+        height:40px;
         width:220px;
         font-size:18px;
 	font-family:Georgia, "Times New Roman", Times, serif;
@@ -504,18 +539,18 @@ ul{
         padding: .2em;
 }
 
-/* White-out the inactive language,  */
+/* Grey the inactive language,  */
 .en .toggleButton > span:last-child {
-        color: #FFFFFF;
+        color:#979DAA;
 }
 
 .jp .toggleButton > span:first-child {
-        color: #FFFFFF;
+        color:#979DAA;
 }
 
 /*Swap on hover to indicate click behavior */
 .en .toggleButton:hover > span:first-child {
-        color: #FFFFFF;
+        color:#979DAA;
 }
 
 .en .toggleButton:hover > span:last-child {
@@ -527,5 +562,5 @@ ul{
 }
 
 .jp .toggleButton:hover > span:last-child {
-        color: #FFFFFF;
+        color:#979DAA;
 }

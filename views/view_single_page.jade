@@ -4,17 +4,6 @@ append head
 	script(src="/view_page.js")
 
 block content
-	#header
-		a(href="/")
-			img(src="/images/HandN_Logo_Small.png")
-		ul
-		li
-				a(href="/poems") New
-		li
-				a(href="/poems/haughtiest") Haughty
-		li
-				a(href="/poems/naughtiest") Naughty
-
 	each poem in poems
 		- poem.lang = poem.lang || lang;
 		#singlePoem

@@ -4,34 +4,7 @@ append head
 	script(src="/view_page.js")
 
 block content
-	#header
-		a(href="/")
-			img(src="/images/HandN_Logo_Small.png")
-		ul
-			li
-				a(href="/poems") New
-			li
-				a(href="/poems/haughtiest") Haughty
-			li
-				a(href="/poems/naughtiest") Naughty
-
-	a(href="/compose")
-		#ComposeButton
-			img(src="/images/Button_Compose_Hover.png")
-			h4 COMPOSE
-
 	#enjpContent
-
-		.contentBox
-			.contentOptions
-
-			.content
-				- if (header == 'haughty')
-					img(src="/images/Title_Haughty.png")
-				- else if (header == 'naughty')
-					img(src="/images/Title_Naughty.png")
-				- else if (header == 'new')
-					img(src="/images/Title_New_Poems.png")
 		each poem, i in poems
 			- poem.lang = poem.lang || lang
 			.poemPadder
@@ -39,10 +12,10 @@ block content
 			.contentBox(id=poem.id,class=poem.lang)
 				.contentOptions
 					h1
-						a.poem-link(href="/poem/#{poem.id}") ##{i + 1}
+						a.poem-link(href="/#{lang}/poem/#{poem.id}") ##{i + 1}
 
 				.content
-					a.poem-link(href="/poem/#{poem.id}")
+					a.poem-link(href="/#{lang}/poem/#{poem.id}")
 						h1= poem.title
 					h3 by #{poem.author}
 					.poem
@@ -53,8 +26,8 @@ block content
 									span.en= line.en
 									span.jp= line.jp
 								else
-									span(class=poem.lang + " hidden")= line[poem.lang]
-									span(class=line.lang + " force")= line[line.lang]
+									span(class="#{poem.lang} hidden")= line[poem.lang]
+									span(class="#{line.lang} force")= line[line.lang]
 
 					.toggleButton
 						span

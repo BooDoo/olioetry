@@ -9,4 +9,25 @@ html
 		title
 			| EN-JP Magnetic Poetry
 	body
+	block header
+			#header
+				.logo
+					a(href="/")
+						if lang == 'en'
+							span.logo Olioetry
+						else
+							span.logo ごった煮冊
+				ul
+					li
+						a(href="/#{lang}/compose")
+							if lang == 'en'
+								| Make
+							else
+								| 作る
+					li
+						a(href="/#{lang}/poems")
+							if lang == 'en'
+								| Read
+							else
+								| 読む
 	block content
