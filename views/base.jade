@@ -26,11 +26,17 @@ html
 							if lang == 'en'
 								| Make
 							else
-								| 作る
+								| 詠む
 					li
 						a(href="/#{lang}/poems")
 							if lang == 'en'
 								| Read
 							else
 								| 読む
+					li
+						a(href="/#{lang}/best")
+							if lang == 'en'
+								| Best
+							else
+								| 一等
 	block content
