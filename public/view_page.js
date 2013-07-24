@@ -1,3 +1,5 @@
+var voted = ",";
+
 function togglePoemLanguage() {
 	var targetBox = $(this).closest(".contentBox");
         $('span', targetBox).removeClass('hidden force');
@@ -7,6 +9,25 @@ function togglePoemLanguage() {
         else {
                 targetBox.removeClass('jp').addClass('en');
         }
+}
+
+function votePoemUp() {
+        var poem_id = $(this).closest(".contentBox")[0].id;
+
+        if (localStorage && localStorage.voted)
+                voted = localStorage.getItem('voted');
+
+        if (voted.indexOf("," + poem_id + ",") === -1) {
+                $.post('/api/upvote/' + poem_id, "", 
+                        function (e) { return; });
+
+                voted += poem_id + ",";
+        }
+
+        if (localStorage)
+                localStorage.setItem('voted', voted)
+
+        $(this).remove();
 }
 
 function toggleForce(e) {
@@ -20,4 +41,6 @@ function toggleForce(e) {
 $(window).load(function () {
         $(".toggleButton").click(togglePoemLanguage);
         $(".poem > .line > span").click(toggleForce);
+        $(".upvote").click(votePoemUp);
+
 });

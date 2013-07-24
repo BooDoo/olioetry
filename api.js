@@ -11,7 +11,7 @@ var express     = require('express'),
     //DigestStrat = require('passport-http').DigestStrategy,
     //allowAll    = function(req, res, next) {next();}, //to auth
     HN_VIEW_API = true,
-    VIEW_PAGE_LENGTH = 20,
+    VIEW_PAGE_LENGTH = 50,
     ENJPWORDS   = require('./splitPhrases.js'),
     LANG        = 'en',
     POEMS       = {};
@@ -61,7 +61,8 @@ app.post('/api/submitpoem', function(req, res) {
 
   if (_.all(poem.lines, _.isEmpty)) {res.send(null,204); return;}
 
-  poem = new Poem(next_id, poem.title, poem.author, poem.lines, poem.lang);
+  poem.score = 0; //prevent tampering!
+  poem = new Poem(next_id, poem.title, poem.author, poem.lines, poem.lang, poem.score);
   POEMS[next_id] = poem;
   poem.persist();
   res.send(next_id, 200);
@@ -87,23 +88,50 @@ app.get('/:lang/poems', function(req, res) {
                             bake_line: viewHelp.bakeLine});
 });
 
+app.get('/:lang/best', function(req, res) {
+  var result = _(POEMS).sortBy('score').last(VIEW_PAGE_LENGTH).reverse().value(),
+      lang = req.params.lang || LANG;
+
+  res.render('view_page', {lang: lang, poems: result, header: 'best',
+                            bake_line: viewHelp.bakeLine});
+});
+
 app.get('/:lang/compose', function(req, res) {
   var lang = req.params.lang || LANG;
   res.render('compose_page', {lang: lang});
 });
 
 app.get('/:lang/poem/:id', function(req, res) {
-  var poemId = req.params.id,
-      poem   = POEMS[poemId],
-      lang   = req.params.lang || LANG,
-      result = [poem];
+  var poemId    = req.params.id,
+      poem      = POEMS[poemId],
+      lang      = req.params.lang || LANG,
+      showPrev  = poemId > 1,
+      showNext  = poemId < POEMS.length,
+      result    = [poem];
 
       if (!poem) {
         res.send(null, 404)
       }
       else {
         res.render('view_single_page', {lang: lang, poems: result, header: 'new',
-                                        bake_line: viewHelp.bakeLine});
+                                        bake_line: viewHelp.bakeLine,
+                                        showPrev: showPrev, showNext: showNext});
+      }
+});
+
+app.post('/api/upvote/:id', function(req, res) {
+  var poemId = req.params.id,
+      poem = POEMS[poemId],
+      result;
+
+      if (!poem) {
+        res.send(null, 204);
+      }
+      else {
+        poem.score += 1;
+        poem.persist();
+        result = {score: score, poemId: poemId};
+        res.send(JSON.stringify(result));
       }
 });
 

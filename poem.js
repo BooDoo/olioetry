@@ -1,11 +1,12 @@
 var dbmodels = require('./dbmodels.js'),
-    Poem = function(id, title, author, lines, lang) {
-      if (!(this instanceof Poem)) {return new Poem(id, title, author, lines, lang);}
+    Poem = function(id, title, author, lines, lang, score) {
+      if (!(this instanceof Poem)) {return new Poem(id, title, author, lines, lang, score);}
   		this.id = id;
       this.title = title;
       this.author = author;
       this.lines = lines;
       this.lang = lang;
+      this.score = score || 0;
       this.persisted = null;
       return this;
     };
@@ -21,17 +22,18 @@ Poem.prototype.persist = function persist() {
         dbpoem;
 
 		if (was_persisted) {
-			dbpoem = this.persisted
+			dbpoem = this.persisted;
     }
 		else {
 			dbpoem = Db.Poem.build();
-			dbpoem.id = this.id
-			this.persisted = dbpoem
+			dbpoem.id = this.id;
+			this.persisted = dbpoem;
 		}
 
-		dbpoem.title = this.title
-		dbpoem.author = this.author
-		dbpoem.lang = this.lang
+		dbpoem.title = this.title;
+		dbpoem.author = this.author;
+		dbpoem.lang = this.lang;
+    dbpoem.score = this.score || 0;
 
 		dbpoem.save()
 			.success(function(res) {console.log('Successfully saved poem with id', dbpoem.id)})
@@ -43,10 +45,10 @@ Poem.prototype.persist = function persist() {
 				var dbline = Db.Line.build();
 				dbline.poem = dbpoem;
 				dbline.en = line.en;
-                dbline.jp = line.jp;
-                dbline.lang = line.lang;
+        dbline.jp = line.jp;
+        dbline.lang = line.lang;
 				dbline.line_no = i;
-                dbpoem.addLine(dbline);
+        dbpoem.addLine(dbline);
       });
 		}
 }
@@ -60,7 +62,7 @@ Poem.depersist = function depersist(dbmodel) {
     });
   });
 
-  var result = new Poem(dbmodel.id, dbmodel.title, dbmodel.author, lines, dbmodel.lang);
+  var result = new Poem(dbmodel.id, dbmodel.title, dbmodel.author, lines, dbmodel.lang, dbmodel.score);
   result.persisted = dbmodel;
 
   return result;

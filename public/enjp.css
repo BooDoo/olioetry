@@ -171,6 +171,7 @@ ul{
 }
 
 .contentOptions{
+	clear:both;
 	padding-bottom:30px;
 	float:left;
 	width:50px;
@@ -563,4 +564,14 @@ ul{
 
 .jp .toggleButton:hover > span:last-child {
         color:#979DAA;
+}
+
+.upvote {
+				margin-left:15px;	
+}
+
+.upvote:hover {
+				color:#000000;
+				/*font-weight:bold;*/
+				cursor:pointer;
 }

@@ -16,7 +16,8 @@ var sqlite = require('sqlite3'),
 					id: 		{type: Sequelize.INTEGER, primaryKey:true},
 					title: 		Sequelize.STRING,
 					author: 	Sequelize.STRING,
-					lang:			Sequelize.STRING
+					lang:			Sequelize.STRING,
+					score:    Sequelize.INTEGER
 				}, {timestamps: false});
 
 				this.Line = DB.define('Line', {

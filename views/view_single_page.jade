@@ -7,9 +7,9 @@ block content
 	each poem in poems
 		- poem.lang = poem.lang || lang;
 		#singlePoem
-			.contentBox(class=poem.lang)
+			.contentBox(id=poem.id,class=poem.lang)
 				.contentOptions
-
+					h1.upvote ++
 				.content
 					h1= poem.title
 					h3 by #{poem.author}
