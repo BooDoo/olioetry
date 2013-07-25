@@ -589,10 +589,37 @@ ul{
 }
 
 .singleNav a {
+				font-family: "Courier New", courier, "メイリオ", Meiryo,
+                     "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",
+                     Osaka, "ＭＳ Ｐゴシック", "MS PGothic", monospace, sans-serif;
         text-decoration:none;
         color:#979DAA;
 }
 
 .singleNav a:hover {
         color:#000000;
+}
+
+/* ------------------------ MOBILE OVERRIDES ------------------------ */
+@media only screen and (max-device-width: 1023px) {
+	#composeModal {
+		width:450px;
+	}
+
+	.contentBox {
+		width:450px;
+	}
+
+	.content {
+		width:400px;
+	}
+
+	#enjpContent {
+		left: 100px;
+		width:530px;
+	}
+
+	.poemPadder {
+		width:430px;
+	}
 }
