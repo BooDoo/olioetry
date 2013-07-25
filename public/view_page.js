@@ -1,4 +1,4 @@
-var voted = ",";
+var voted = localStorage ? localStorage.voted || "," : ",";
 
 function togglePoemLanguage() {
 	var targetBox = $(this).closest(".contentBox");
@@ -14,18 +14,24 @@ function togglePoemLanguage() {
 function votePoemUp() {
         var poem_id = $(this).closest(".contentBox")[0].id;
 
-        if (localStorage && localStorage.voted)
+        if (localStorage && localStorage.voted) {
+                console.log("localStorage.voted exists");
                 voted = localStorage.getItem('voted');
+        }
 
         if (voted.indexOf("," + poem_id + ",") === -1) {
-                $.post('/api/upvote/' + poem_id, "", 
+                console.log("Haven't voted on this poem yet.");
+                $.post('/api/upvote/' + poem_id, "",
                         function (e) { return; });
 
                 voted += poem_id + ",";
-        }
+                console.log("Now we have:", voted);
 
-        if (localStorage)
-                localStorage.setItem('voted', voted)
+                if (localStorage) {
+                   localStorage.setItem('voted', voted)
+                   console.log("updated localStorage.voted:",localStorage.voted);
+                }
+        }
 
         $(this).remove();
 }
@@ -41,6 +47,8 @@ function toggleForce(e) {
 $(window).load(function () {
         $(".toggleButton").click(togglePoemLanguage);
         $(".poem > .line > span").click(toggleForce);
+        $(".contentBox").filter(function() {
+                return ~voted.indexOf("," + this.id + ",");
+        }).find(".upvote").remove();
         $(".upvote").click(votePoemUp);
-
 });

@@ -221,7 +221,9 @@ ul{
 #singlePoem{
 	background-color:#FFF;
 	border:medium #CCC solid;
-	padding-top:50px;
+	/*padding-top:50px;*/
+        padding-top:5px;
+        /*padding-bottom: 40px;*/
 	position:absolute;
 	top:50%;
 	margin-top:-200px;
@@ -567,11 +569,30 @@ ul{
 }
 
 .upvote {
-				margin-left:15px;	
+				margin-left:15px;
 }
 
 .upvote:hover {
 				color:#000000;
 				/*font-weight:bold;*/
 				cursor:pointer;
+}
+
+#header.read .read {color: #000000}
+#header.make .make {color: #000000}
+#header.best .best {color: #000000}
+#header.random .random {color: #000000}
+
+.singleNav .navNext, .singleNav .navPrev {
+        float:right;
+        margin-right:5%;
+}
+
+.singleNav a {
+        text-decoration:none;
+        color:#979DAA;
+}
+
+.singleNav a:hover {
+        color:#000000;
 }

@@ -76,7 +76,7 @@ app.get('/:lang', function(req, res) {
   var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
 
-  res.render('view_page', {lang: lang, poems: result, header: 'new',
+  res.render('view_page', {lang: lang, poems: result, header: 'read',
                             bake_line: viewHelp.bakeLine});
 });
 
@@ -84,7 +84,7 @@ app.get('/:lang/poems', function(req, res) {
   var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
 
-  res.render('view_page', {lang: lang, poems: result, header: 'new',
+  res.render('view_page', {lang: lang, poems: result, header: 'read',
                             bake_line: viewHelp.bakeLine});
 });
 
@@ -98,24 +98,43 @@ app.get('/:lang/best', function(req, res) {
 
 app.get('/:lang/compose', function(req, res) {
   var lang = req.params.lang || LANG;
-  res.render('compose_page', {lang: lang});
+  res.render('compose_page', {lang: lang, header: 'make'});
 });
 
 app.get('/:lang/poem/:id', function(req, res) {
-  var poemId    = req.params.id,
-      poem      = POEMS[poemId],
-      lang      = req.params.lang || LANG,
-      showPrev  = poemId > 1,
-      showNext  = poemId < POEMS.length,
-      result    = [poem];
+  var poemId  = parseInt(req.params.id),
+      poem    = POEMS[poemId],
+      lang    = req.params.lang || LANG,
+      prevId  = poemId > 1 ? poemId-1 : null,
+      nextId  = poemId + 1 <= _.keys(POEMS).length ? poemId+1: null,
+      result  = [poem];
 
       if (!poem) {
         res.send(null, 404)
       }
       else {
-        res.render('view_single_page', {lang: lang, poems: result, header: 'new',
+        res.render('view_single_page', {lang: lang, poems: result, header: 'single',
                                         bake_line: viewHelp.bakeLine,
-                                        showPrev: showPrev, showNext: showNext});
+                                        prevId: prevId, nextId: nextId});
+      }
+});
+
+app.get('/:lang/poem', function(req, res) {
+  var poemId  = _.random(1, _.keys(POEMS).length),
+      poem    = POEMS[poemId],
+      lang    = req.params.lang || LANG,
+      prevId  = poemId > 1 ? poemId-1 : null,
+      nextId  = poemId + 1 <= _.keys(POEMS).length ? poemId+1: null,
+      result  = [poem];
+
+      console.log(poemId)
+      if (!poem) {
+        res.send(null, 404)
+      }
+      else {
+        res.render('view_single_page', {lang: lang, poems: result, header: 'random',
+                                        bake_line: viewHelp.bakeLine,
+                                        prevId: prevId, nextId: nextId});
       }
 });
 
@@ -130,7 +149,7 @@ app.post('/api/upvote/:id', function(req, res) {
       else {
         poem.score += 1;
         poem.persist();
-        result = {score: score, poemId: poemId};
+        result = {poemId: poemId};
         res.send(JSON.stringify(result));
       }
 });

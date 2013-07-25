@@ -13,7 +13,7 @@ html
 				| ごった煮冊
 	body
 	block header
-			#header
+			#header(class=header)
 				.logo
 					a(href="/")
 						if lang == 'en'
@@ -22,21 +22,27 @@ html
 							span.logo ごった煮冊
 				ul
 					li
-						a(href="/#{lang}/compose")
+						a(href="/#{lang}/compose",class="make")
 							if lang == 'en'
 								| Make
 							else
 								| 詠む
 					li
-						a(href="/#{lang}/poems")
+						a(href="/#{lang}/poems",class="read")
 							if lang == 'en'
 								| Read
 							else
 								| 読む
 					li
-						a(href="/#{lang}/best")
+						a(href="/#{lang}/best",class="best")
 							if lang == 'en'
 								| Best
 							else
 								| 一等
+					li
+						a(href="/#{lang}/poem",class="random")
+							if lang == 'en'
+								| Random
+							else
+								| ランダム
 	block content
