@@ -3,44 +3,55 @@ extends base
 append head
 	script(src="/view_page.js")
 
+	- poem = poems[0];
+	- poem.lang = poem.lang || lang;
+	- cardTitle = (lang == 'en') ? 'olioetry' : "ごった煮冊";
+
+	meta(name="twitter:card",content="photo")
+	meta(name="twitter:image:src",content="http://olioetry.jit.su/poem/#{poem.id}/png")
+	meta(name="twitter:title",content=cardTitle)
+	//meta(name="twitter:title",content=poem.title)
+
+	//meta(name="twitter:site",content="@olioetry")
+	//meta(name="twitter:creator",content="@#{poem.authorTwitter}")
+	//meta(name="twitter:domain",content="olioetry.jit.su")
+
 block content
-	each poem in poems
-		- poem.lang = poem.lang || lang;
-		#singlePoem
-			.singleNav
-				if nextId
-					.navNext
-						a(href="/#{lang}/poem/#{nextId}")
-							if lang == 'en'
-								| NEXT
-							else
-								| 次
-				if prevId
-					.navPrev
-						a(href="/#{lang}/poem/#{prevId}")
-							if lang == 'en'
-								| PREV
-							else
-								| 前
-			.contentBox(id=poem.id,class=poem.lang)
-				.contentOptions
-					h1.upvote ++
-				.content
-					h1= poem.title
-					h3 by #{poem.author}
-					.poem
-						each line in poem.lines
-							unless !line.en
-								-line.lang = line.lang || poem.lang;
-								.line
-									if line.lang === poem.lang
-										span.en= line.en
-										span.jp= line.jp
-									else
-										span(class=poem.lang + " hidden")= line[poem.lang]
-										span(class=line.lang + " force")= line[line.lang]
-					.toggleButton
-						span
-							| EN
-						span
-							| 日本
+	#singlePoem
+		.singleNav
+			if nextId
+				.navNext
+					a(href="/#{lang}/poem/#{nextId}")
+						if lang == 'en'
+							| NEXT
+						else
+							| 次
+			if prevId
+				.navPrev
+					a(href="/#{lang}/poem/#{prevId}")
+						if lang == 'en'
+							| PREV
+						else
+							| 前
+		.contentBox(id=poem.id,class=poem.lang)
+			.contentOptions
+				h1.upvote ++
+			.content
+				h1= poem.title
+				h3 by #{poem.author}
+				.poem
+					each line in poem.lines
+						unless !line.en
+							-line.lang = line.lang || poem.lang;
+							.line
+								if line.lang === poem.lang
+									span.en= line.en
+									span.jp= line.jp
+								else
+									span(class=poem.lang + " hidden")= line[poem.lang]
+									span(class=line.lang + " force")= line[line.lang]
+				.toggleButton
+					span
+						| EN
+					span
+						| 日本

@@ -1,5 +1,12 @@
 extends base
 
+append head
+	- cardTitle = (lang == 'en') ? 'olioetry' : "ごった煮冊";
+	meta(name="twitter:card",content="photo")
+	meta(name="twitter:image:src",content="http://olioetry.jit.su/images/landing.png")
+	meta(name="twitter:title",content=cardTitle)
+	meta(name="twitter:creator",content="@BooDooPERSON")
+
 block header
 
 block content

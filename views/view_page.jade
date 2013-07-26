@@ -3,6 +3,12 @@ extends base
 append head
 	script(src="/view_page.js")
 
+	- cardTitle = (lang == 'en') ? 'olioetry' : "ごった煮冊";
+	meta(name="twitter:card",content="photo")
+	meta(name="twitter:image:src",content="http://olioetry.jit.su/images/read-#{lang}.png")
+	meta(name="twitter:title",content=cardTitle)
+	meta(name="twitter:creator",content="@BooDooPERSON")
+
 block content
 	#enjpContent
 		each poem, i in poems

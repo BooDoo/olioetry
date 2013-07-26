@@ -1,0 +1,62 @@
+extends base
+
+block head
+	style#forPNG
+		html, body, div, span, applet, object, iframe,
+		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+		a, abbr, acronym, address, big, cite, code,
+		del, dfn, em, img, ins, kbd, q, s, samp,
+		small, strike, strong, sub, sup, tt, var,
+		b, u, i, center,
+		dl, dt, dd, ol, ul, li,
+		fieldset, form, label, legend,
+		table, caption, tbody, tfoot, thead, tr, th, td,
+		article, aside, canvas, details, embed,
+		figure, figcaption, footer, header, hgroup,
+		menu, nav, output, ruby, section, summary,
+		time, mark, audio, video {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+		.jp {font-family:"メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;}
+		.en .jp, .jp .en {display:none;}
+		.force {display:block !important;}
+		.hidden {display:none;}
+		div {display:block;}
+		.poem {font-family: Georgia, "Times New Roman", Times, serif; font-style: italic; font-size: 22px; line-height: 36px; margin-top: 30px; margin-bottom: 30px;}
+		.content {float:left; width:444px;padding:17px;}
+		#singlePoem {height: 294px; left: 0px; top: 0px; margin-left: 0px; margin-top: 0px; padding-top: 0px; width: 444px; background-color: #FFF; border: medium #CCC solid; position: absolute; overflow:visible;}
+		body {line-height: 1; background-color: #FAFAFA; padding-top: 42px;}
+		h1{ font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold; color:black; font-size:22px;}
+		h3{ font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; color:black; font-size:14px; line-height:22px;}
+	title
+		if lang == 'en'
+			| OLIOETRY
+		else
+			| ごった煮冊
+
+block header
+
+block content
+	each poem in poems
+		- poem.lang = poem.lang || lang;
+		#singlePoem(style="height:294px;left:0px;top:0px;margin-left:0px;margin-top:0px;padding-top:0px;width:444px")
+			.contentBox(id=poem.id,class=poem.lang,style="width:444px;")
+				.content
+					h1= poem.title
+					h3 by #{poem.author}
+					.poem
+						each line in poem.lines
+							unless !line.en
+								-line.lang = line.lang || poem.lang;
+								.line
+									if line.lang === poem.lang
+										span.en= line.en
+										span.jp= line.jp
+									else
+										span(class=poem.lang + " hidden")= line[poem.lang]
+										span(class=line.lang + " force")= line[line.lang]

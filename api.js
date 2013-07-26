@@ -4,6 +4,7 @@ var express     = require('express'),
     path        = require('path'),
     fs          = require('fs'),
     _           = require('lodash'),
+    webshot     = require('webshot'),
     Poem        = require('./poem.js'),
     Db          = require('./dbmodels.js'),
     viewHelp    = require('./view_page_helpers.js'),
@@ -26,11 +27,23 @@ var express     = require('express'),
       });
     });
 
+//Setup webshot:
+var webshotOptions = {
+  screenSize: {width: 700, height: 300}
+//, phantomConfig: {"localToRemoteUrlAccess": "true"}
+, shotSize: {width: 'window', height: 'window'}
+, siteType: 'html'
+};
+
+if (process.env['NODE_ENV'] !== 'production') {
+  webshotOptions.phantomPath = './bin/phantomjs';
+}
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join (__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(express.favicon()); //TODO: Make a favicon!
+app.use(express.favicon(__dirname + '/public/favicon.ico'));
 app.use(express.logger('dev')); //TODO: Toggle logging?
 app.use(express.bodyParser());
 app.use(express.methodOverride());
@@ -76,24 +89,21 @@ app.get('/:lang', function(req, res) {
   var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
 
-  res.render('view_page', {lang: lang, poems: result, header: 'read',
-                            bake_line: viewHelp.bakeLine});
+  res.render('view_page', {lang: lang, poems: result, header: 'read'});
 });
 
 app.get('/:lang/poems', function(req, res) {
   var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
 
-  res.render('view_page', {lang: lang, poems: result, header: 'read',
-                            bake_line: viewHelp.bakeLine});
+  res.render('view_page', {lang: lang, poems: result, header: 'read'});
 });
 
 app.get('/:lang/best', function(req, res) {
   var result = _(POEMS).sortBy('score').last(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
 
-  res.render('view_page', {lang: lang, poems: result, header: 'best',
-                            bake_line: viewHelp.bakeLine});
+  res.render('view_page', {lang: lang, poems: result, header: 'best'});
 });
 
 app.get('/:lang/compose', function(req, res) {
@@ -109,14 +119,30 @@ app.get('/:lang/poem/:id', function(req, res) {
       nextId  = poemId + 1 <= _.keys(POEMS).length ? poemId+1: null,
       result  = [poem];
 
-      if (!poem) {
-        res.send(null, 404)
-      }
-      else {
-        res.render('view_single_page', {lang: lang, poems: result, header: 'single',
-                                        bake_line: viewHelp.bakeLine,
-                                        prevId: prevId, nextId: nextId});
-      }
+  if (!poem) {res.send(null, 404); return;}
+
+  res.render('view_single_page', {lang: lang, poems: result, header: 'single',
+                                  prevId: prevId, nextId: nextId});
+});
+
+app.get('/:lang/poem/:id/png', function(req, res) {
+  var poemId  = parseInt(req.params.id),
+      poem    = POEMS[poemId],
+      lang    = req.params.lang || LANG,
+      result  = [poem],
+      imgPath = __dirname + '/public/images/' + poemId + '.png';
+
+  if (!poem) {res.send(null, 404); return;}
+  if (fs.existsSync(imgPath)) {res.sendfile(imgPath); return;}
+
+  app.render('single_for_png', {lang: lang, poems: result, header: 'png'}, function(err, html) {
+    if (err) {res.send(null, 404); return;}
+
+    webshot(html, imgPath, webshotOptions, function(err) {
+      if (err) {res.send(null, 500); return;}
+      res.sendfile(imgPath);
+    });
+  });
 });
 
 app.get('/:lang/poem', function(req, res) {
@@ -127,15 +153,9 @@ app.get('/:lang/poem', function(req, res) {
       nextId  = poemId + 1 <= _.keys(POEMS).length ? poemId+1: null,
       result  = [poem];
 
-      console.log(poemId)
-      if (!poem) {
-        res.send(null, 404)
-      }
-      else {
-        res.render('view_single_page', {lang: lang, poems: result, header: 'random',
-                                        bake_line: viewHelp.bakeLine,
-                                        prevId: prevId, nextId: nextId});
-      }
+  if (!poem) {res.send(null, 404); return;}
+  res.render('view_single_page', {lang: lang, poems: result, header: 'random',
+                                  prevId: prevId, nextId: nextId});
 });
 
 app.post('/api/upvote/:id', function(req, res) {
@@ -143,22 +163,19 @@ app.post('/api/upvote/:id', function(req, res) {
       poem = POEMS[poemId],
       result;
 
-      if (!poem) {
-        res.send(null, 204);
-      }
-      else {
-        poem.score += 1;
-        poem.persist();
-        result = {poemId: poemId};
-        res.send(JSON.stringify(result));
-      }
+  if (!poem) {res.send(null, 204); return;}
+
+  poem.score += 1;
+  poem.persist();
+  result = {poemId: poemId};
+  res.send(JSON.stringify(result));
 });
 
 if (HN_VIEW_API) {
   app.get('/api/poems', function(req, res) {
     var result = _(POEMS).sortBy('id').last(10).reverse().value();
 
-        res.send(JSON.stringify(result));
+    res.send(JSON.stringify(result));
   });
 
   app.get('/api/poem/:id', function(req, res) {

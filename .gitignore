@@ -22,3 +22,6 @@ doc/
 
 # dev databases
 *.db
+
+#generated PNGs
+public/images/*
