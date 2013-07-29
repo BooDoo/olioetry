@@ -4,7 +4,7 @@ var express     = require('express'),
     path        = require('path'),
     fs          = require('fs'),
     _           = require('lodash'),
-    webshot     = require('webshot'),
+    gm          = require('gm'),
     Poem        = require('./poem.js'),
     Db          = require('./dbmodels.js'),
     viewHelp    = require('./view_page_helpers.js'),
@@ -26,7 +26,7 @@ var express     = require('express'),
         });
       });
     });
-
+/*
 //Setup webshot:
 var webshotOptions = {
   screenSize: {width: 700, height: 300}
@@ -38,6 +38,7 @@ var webshotOptions = {
 if (process.env['NODE_ENV'] !== 'production') {
   webshotOptions.phantomPath = './bin/phantomjs';
 }
+*/
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -129,20 +130,28 @@ app.get('/:lang/poem/:id/png', function(req, res) {
   var poemId  = parseInt(req.params.id),
       poem    = POEMS[poemId],
       lang    = req.params.lang || LANG,
-      result  = [poem],
       imgPath = __dirname + '/public/images/' + poemId + '.png';
 
   if (!poem) {res.send(null, 404); return;}
   if (fs.existsSync(imgPath)) {res.sendfile(imgPath); return;}
 
-  app.render('single_for_png', {lang: lang, poems: result, header: 'png'}, function(err, html) {
-    if (err) {res.send(null, 404); return;}
+  makeCard(poem, imgPath, res);
+  /*
+  res.render('single_for_png', {lang: lang, poems: result, header: 'png'});
+  return;
+  */
+});
 
-    webshot(html, imgPath, webshotOptions, function(err) {
-      if (err) {res.send(null, 500); return;}
-      res.sendfile(imgPath);
-    });
-  });
+app.get('/poem/:id/png', function(req, res) {
+  var poemId  = parseInt(req.params.id),
+      poem    = POEMS[poemId],
+      lang    = LANG,
+      imgPath = __dirname + '/public/images/' + poemId + '.png';
+
+  if (!poem) {res.send(null, 404); return;}
+  if (fs.existsSync(imgPath)) {res.sendfile(imgPath); return;}
+
+  makeCard(poem, imgPath, res);
 });
 
 app.get('/:lang/poem', function(req, res) {
@@ -188,6 +197,40 @@ if (HN_VIEW_API) {
     else {
       res.send(null, 204);
     }
+  });
+}
+
+function makeCard(poem, imgPath, res) {
+  var imgOut = gm(450, 300, "#FAFAFA")
+              .stroke("#CCCCCC",3)
+              .drawLine(2,2,2,300)
+              .drawLine(2,2,450,2)
+              .drawLine(448,2,448,300)
+              .drawLine(2,298,450,298)
+              .stroke(),
+      jpTest = /[\u3000-\uFF9F]+/gi,
+      titleFont = !~poem.title.search(jpTest) ?
+                  __dirname + '/fonts/georgiab.ttf' :
+                  __dirname + '/fonts/MTG4m2bH.ttc',
+      authorFont = !~poem.author.search(jpTest) ?
+                  __dirname + '/fonts/georgiab.ttf' :
+                  __dirname + '/fonts/MTG4m2bH.ttc',
+      lineY      = 110;
+
+  imgOut.font(titleFont,22).drawText(17,40,poem.title)
+        .font(authorFont,14).drawText(17,58,"by " + poem.author);
+
+  _.each(poem.lines, function(line) {
+    var lineFont = line.lang === 'en' ?
+                  __dirname + '/fonts/georgiai.ttf' :
+                  __dirname + '/fonts/MTG4g2bH.ttc';
+    imgOut.font(lineFont,22).drawText(17,lineY,line[line.lang]);
+    lineY += 36;
+  });
+
+  imgOut.write(imgPath, function (err) {
+    if (err) {res.send(err, 500); return;}
+    res.sendfile(imgPath);
   });
 }
 

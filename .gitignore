@@ -24,4 +24,7 @@ doc/
 *.db
 
 #generated PNGs
-public/images/*
+#public/images/*
+
+#fonts
+#fonts/

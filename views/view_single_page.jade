@@ -7,11 +7,15 @@ append head
 	- poem.lang = poem.lang || lang;
 	- cardTitle = (lang == 'en') ? 'olioetry' : "ごった煮冊";
 
-	meta(name="twitter:card",content="photo")
-	meta(name="twitter:image:src",content="http://olioetry.jit.su/poem/#{poem.id}/png")
-	meta(name="twitter:title",content=cardTitle)
-	//meta(name="twitter:title",content=poem.title)
+	meta(property="og:image",content="http://olioetry.jit.su/#{poem.lang}/poem/#{poem.id}/png")
+	meta(property="og:site_name",content=cardTitle)
 
+	meta(name="twitter:card",content="photo")
+	meta(name="twitter:image:width",content="450")
+	meta(name="twitter:image:height",content="300")
+	meta(name="twitter:image:src",content="http://olioetry.jit.su/#{poem.lang}/poem/#{poem.id}/png")
+	meta(name="twitter:title",content="")
+	//meta(name="twitter:title",content=poem.title)
 	//meta(name="twitter:site",content="@olioetry")
 	//meta(name="twitter:creator",content="@#{poem.authorTwitter}")
 	//meta(name="twitter:domain",content="olioetry.jit.su")
