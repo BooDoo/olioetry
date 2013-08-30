@@ -26,19 +26,6 @@ var express     = require('express'),
         });
       });
     });
-/*
-//Setup webshot:
-var webshotOptions = {
-  screenSize: {width: 700, height: 300}
-//, phantomConfig: {"localToRemoteUrlAccess": "true"}
-, shotSize: {width: 'window', height: 'window'}
-, siteType: 'html'
-};
-
-if (process.env['NODE_ENV'] !== 'production') {
-  webshotOptions.phantomPath = './bin/phantomjs';
-}
-*/
 
 // all environments
 app.set('port', process.env.PORT || 3000);
