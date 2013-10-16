@@ -1,4 +1,4 @@
-var dbmodels = require('./dbmodels.js'),
+var dbmodels = require(__dirname + '/dbmodels.js'),
     Poem = function(id, title, author, lines, lang, score) {
       if (!(this instanceof Poem)) {return new Poem(id, title, author, lines, lang, score);}
   		this.id = id;

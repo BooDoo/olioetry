@@ -2,11 +2,13 @@ var sqlite = require('sqlite3'),
 		Sequelize = require('sequelize'),
 		connection_string = process.env['DATABASE_URL'],
 		DB = connection_string
-					?	new Sequelize(connection_string)
+					? new Sequelize(connection_string)
 					: new Sequelize(process.env['DATABASE_NAME'] || 'enjp',
 													process.env['DATABASE_USER'] || null,
 													process.env['DATABASE_PASS'] || null,
-													{dialect: 'sqlite', storage: process.env['DATABASE_NAME'] || 'enjp'});
+													
+{dialect: 'sqlite', storage: __dirname + '/' + (process.env['DATABASE_NAME'] || 
+'enjp')});
 		Db = {
 			"Poem": {},
 			"Line": {},

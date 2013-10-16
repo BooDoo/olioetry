@@ -5,15 +5,15 @@ var express     = require('express'),
     fs          = require('fs'),
     _           = require('lodash'),
     gm          = require('gm'),
-    Poem        = require('./poem.js'),
-    Db          = require('./dbmodels.js'),
-    viewHelp    = require('./view_page_helpers.js'),
+    Poem        = require(path.join(__dirname, 'poem.js')),
+    Db          = require(path.join(__dirname, 'dbmodels.js')),
+    viewHelp    = require(path.join(__dirname, 'view_page_helpers.js')),
     //passport    = require('passport'),
     //DigestStrat = require('passport-http').DigestStrategy,
     //allowAll    = function(req, res, next) {next();}, //to auth
     HN_VIEW_API = true,
     VIEW_PAGE_LENGTH = 50,
-    ENJPWORDS   = require('./splitPhrases.js'),
+    ENJPWORDS   = require(path.join(__dirname, '/splitPhrases.js')),
     LANG        = 'en',
     POEMS       = {};
 
@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/store', function(req, res) {
     res.attachment('enjp-db');
-    res.end(fs.readFileSync('./enjp'));
+    res.end(fs.readFileSync(path.join(__dirname, 'enjp')));
 });
 
 app.get('/api/newpoem', function(req, res) {
@@ -221,6 +221,11 @@ function makeCard(poem, imgPath, res) {
   });
 }
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+/* Uncomment this to listen instead of just exporting for vhost use
+ *
+ * http.createServer(app).listen(app.get('port'), function(){
+ *  console.log('Express server listening on port ' + app.get('port'));
+ * });
+ */
+
+exports.app = app;
