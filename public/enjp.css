@@ -276,13 +276,13 @@ ul{
 }
 
 #saveButton.disabled{
-	background:white;
-        color:white;
+	background:#FAFAFA;
+        color:#FAFAFA;
 	cursor: not-allowed;
 }
 
 #saveButton.disabled:hover{
-        color:white;
+        color:#FAFAFA;
 }
 
 #clearButton{
