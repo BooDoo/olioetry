@@ -27,6 +27,9 @@ var express     = require('express'),
       });
     });
 
+//Use ImageMagick:
+gm = gm.subClass({ imageMagick: true });
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join (__dirname, 'views'));
@@ -120,7 +123,12 @@ app.get('/:lang/poem/:id/png', function(req, res) {
       imgPath = __dirname + '/public/images/' + poemId + '.png';
 
   if (!poem) {res.send(null, 404); return;}
-  if (fs.existsSync(imgPath)) {res.sendfile(imgPath); return;}
+  if (!fs.existsSync(__dirname + '/public/images')) {
+    fs.mkdir(__dirname + '/public/images');
+  }
+  if (fs.existsSync(imgPath)) {
+    res.sendfile(imgPath); return;
+  }
 
   makeCard(poem, imgPath, res);
   /*
