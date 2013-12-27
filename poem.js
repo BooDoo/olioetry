@@ -41,16 +41,20 @@ Poem.prototype.persist = function persist() {
 
 		//if we haven't been persisted before, create new line records
 		if (!was_persisted) {
-			this.lines.forEach(function(line, i) {
-				var dbline = Db.Line.build();
-				dbline.poem = dbpoem;
-				dbline.en = line.en;
-        dbline.jp = line.jp;
-        dbline.lang = line.lang;
-				dbline.line_no = i;
-        dbpoem.addLine(dbline);
-      });
+      this.persistLines(dbpoem.id)
 		}
+}
+
+Poem.prototype.persistLines = function persistLines(poem_id) {
+  this.lines.forEach(function(line, i) {
+    var dbline = Db.Line.build();
+    dbline.en = line.en;
+    dbline.jp = line.jp;
+    dbline.lang = line.lang;
+    dbline.line_no = i;
+    dbline.PoemId = poem_id;
+    dbline.save();
+  });
 }
 
 Poem.depersist = function depersist(dbmodel) {
