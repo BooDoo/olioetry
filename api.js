@@ -39,7 +39,7 @@ app.use(express.logger('dev')); //TODO: Toggle logging?
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('electric SH33P'));
-app.use(express.session());
+//app.use(express.session());
 //app.use(passport.initialize());
 //app.use(passport.session()); //For use if running passport auth
 app.use(express.static(path.join(__dirname, 'public')));
