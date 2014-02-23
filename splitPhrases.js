@@ -1,5 +1,705 @@
 module.exports = [
  {
+  "e": "imitate his voice",
+  "j": "彼の声を真似る"
+ },
+ {
+  "e": "whisper in her ear",
+  "j": "彼女の耳にささやく"
+ },
+ {
+  "e": "sweep the floor",
+  "j": "床を掃く"
+ },
+ {
+  "e": "fold a piece of paper",
+  "j": "紙を折りたたむ"
+ },
+ {
+  "e": "grab her by the hair",
+  "j": "彼女の髪をつかむ"
+ },
+ {
+  "e": "assert that it is impossible",
+  "j": "それは不可能だと主張する"
+ },
+ {
+  "e": "classify man as an animal",
+  "j": "人間を動物として分類する"
+ },
+ {
+  "e": "polish the shoes",
+  "j": "靴を磨く"
+ },
+ {
+  "e": "rub the skin with a towel",
+  "j": "タオルで肌をこする"
+ },
+ {
+  "e": "gaze at the stars",
+  "j": "星を見つめる"
+ },
+ {
+  "e": "a girl screaming for help",
+  "j": "助けをもとめ悲鳴をあげる少女"
+ },
+ {
+  "e": "assist in my father's business",
+  "j": "父の仕事を手伝う"
+ },
+ {
+  "e": "bend down to pick up the can",
+  "j": "缶をひろおうと身をかがめる"
+ },
+ {
+  "e": "evaluate the student's ability",
+  "j": "学生の能力を評価する"
+ },
+ {
+  "e": "undergo great changes",
+  "j": "大きな変化を経験する"
+ },
+ {
+  "e": "scatter toys on the floor",
+  "j": "床におもちゃをばらまく"
+ },
+ {
+  "e": "modify the plan",
+  "j": "計画を修正する"
+ },
+ {
+  "e": "invade Poland",
+  "j": "ポーランドに侵入する"
+ },
+ {
+  "e": "The snow will melt soon.",
+  "j": "雪はまもなく解けるだろう"
+ },
+ {
+  "e": "conquer the world",
+  "j": "世界を征服する"
+ },
+ {
+  "e": "exaggerate the size of the fish",
+  "j": "魚の大きさを誇張する"
+ },
+ {
+  "e": "Look before you leap.",
+  "j": "飛ぶ前によく見よ"
+ },
+ {
+  "e": "unite the Arab world",
+  "j": "アラブ世界を団結させる"
+ },
+ {
+  "e": "restore the old building",
+  "j": "古い建物を修復する"
+ },
+ {
+  "e": "inherit genes from our parents",
+  "j": "親から遺伝子を受け継ぐ"
+ },
+ {
+  "e": "cooperate with each other",
+  "j": "お互いに協力する"
+ },
+ {
+  "e": "wipe the table",
+  "j": "テーブルを拭く"
+ },
+ {
+  "e": "Exports exceed imports",
+  "j": "輸出が輸入を超える"
+ },
+ {
+  "e": "chat with friends",
+  "j": "友達とおしゃべりする"
+ },
+ {
+  "e": "conceal the fact from him",
+  "j": "彼に事実を隠す"
+ },
+ {
+  "e": "distribute food equally",
+  "j": "平等に食料を分配する"
+ },
+ {
+  "e": "regulate traffic",
+  "j": "交通を規制する"
+ },
+ {
+  "e": "Memories of the war fade away",
+  "j": "戦争の記憶が薄れる"
+ },
+ {
+  "e": "vanish from sight",
+  "j": "視界から消える"
+ },
+ {
+  "e": "a body floating in the river",
+  "j": "川に浮かぶ死体"
+ },
+ {
+  "e": "energy to sustain life",
+  "j":"生命を維持するためのエネルギー"
+ },
+ {
+  "e": "generate electricity",
+  "j":"電力を生み出す"
+ },
+ {
+  "e": "it is easy to deceive people",
+  "j":"人をだますのは簡単だ"
+ },
+ {
+  "e": "apologize to him for being late",
+  "j":"遅れたことを彼に謝る"
+ },
+ {
+  "e": "beg him to come back",
+  "j":"彼に帰ってきてと乞う"
+ },
+ {
+  "e": "rescue a man from a fire",
+  "j":"家事で人を救助する"
+ },
+ {
+  "e": "leave a sinking ship",
+  "j":"沈む船から逃げる"
+ },
+ {
+  "e": "calculate the cost",
+  "j":"コストを計算する"
+ },
+ {
+  "e": "retain the world title",
+  "j":"世界タイトルを保持する"
+ },
+ {
+  "e": "glance at the clock",
+  "j":"時計をちらりと見る"
+ },
+ {
+  "e": "punish him for the crime",
+  "j":"その罪で彼を罰する"
+ },
+ {
+  "e": "sacrifice everything for love",
+  "j": "愛の為に全てを犠牲にする"
+ },
+ {
+  "e": "broadcast the concert live",
+  "j": "生でコンサートを放送する"
+ },
+ {
+  "e": "forbid him to go out",
+  "j": "彼の外出を禁じる"
+ },
+ {
+  "e": "defend the country",
+  "j": "国を守る"
+ },
+ {
+  "e": "entertain guests at the party",
+  "j": "パーティーで客をもてなす"
+ },
+ {
+  "e": "greet people with a smile",
+  "j": "笑顔で人に挨拶する"
+ },
+ {
+  "e": "confirm Darwin's theory",
+  "j": "ダーウィンの理論を裏付ける"
+ },
+ {
+  "e": "dominate the world economy",
+  "j": "世界経済を支配する"
+ },
+ {
+  "e": "guarantee your safety",
+  "j": "君の安全を保証する"
+ },
+ {
+  "e": "translate a novel into English",
+  "j": "小説を英語に翻訳する"
+ },
+ {
+  "e": "endure great pain",
+  "j": "ひどい苦痛に耐える"
+ },
+ {
+  "e": "don't hesitate to ask questions",
+  "j": "質問するのをためらうな"
+ },
+ {
+  "e": "accomplish the difficult task",
+  "j": "困難な仕事をやり遂げる"
+ },
+ {
+  "e": "score 10 goals",
+  "j": "10点をとる"
+ },
+ {
+  "e": "pour wine into the glass",
+  "j": "グラスにワインを注ぐ"
+ },
+ {
+  "e": "cope with problems",
+  "j": "問題に対処する"
+ },
+ {
+  "e": "bury the dead body",
+  "j": "死体を埋める"
+ },
+ {
+  "e": "deserve attention",
+  "j": "注目に値する"
+ },
+ {
+  "e": "the noise annoys me",
+  "j": "その音が私をいらだたせる"
+ },
+ {
+  "e": "pretend to be asleep",
+  "j": "眠っているふりをする"
+ },
+ {
+  "e": "investigate the cause of her death",
+  "j": "彼女の試飲を調査する"
+ },
+ {
+  "e": "defeat the champion",
+  "j": "チャンピオンを打ち負かす"
+ },
+ {
+  "e": "transform food into energy",
+  "j": "食べ物をエネルギーに変える"
+ },
+ {
+  "e": "retire at age of 60",
+  "j": "60歳で退職する"
+ },
+ {
+  "e": "alter the schedule",
+  "j": "スケジュールを変更する"
+ },
+ {
+  "e": "declare independence from Britain",
+  "j": "イギリスからの独立を宣言する"
+ },
+ {
+  "e": "I bet you'll win",
+  "j": "きっと君は勝つと思う"
+ },
+ {
+  "e": "tap her on the shoulder",
+  "j": "彼女の方を軽く叩く"
+ },
+ {
+  "e": "stem from an ancient tradition",
+  "j": "古い伝統に由来する"
+ },
+ {
+  "e": "heal a broken leg",
+  "j": "折れた足を治す"
+ },
+ {
+  "e": "be infected with the virus",
+  "j": "ウイルスに感染している"
+ },
+ {
+  "e": "spill coffee on the keyboard",
+  "j": "キーボードにコーヒーをこぼす"
+ },
+ {
+  "e": "his power diminished",
+  "j": "彼の力は衰えた"
+ },
+ {
+  "e": "foster a sense of responsibility",
+  "j": "責任感を養う"
+ },
+ {
+  "e": "endangered animals",
+  "j": "危機にさらされている動物たち"
+ },
+ {
+  "e": "launch a space shuttle",
+  "j": "スペースシャトルを発射する"
+ },
+ {
+  "e": "interfere with his work",
+  "j": "彼の仕事を邪魔する"
+ },
+ {
+  "e": "how to detect lies",
+  "j": "嘘を発見する方法"
+ },
+ {
+  "e": "withdraw my hand",
+  "j": "手を引っ込める"
+ },
+ {
+  "e": "prompt him to speak",
+  "j": "彼に話をすすめるよううながす"
+ },
+ {
+  "e": "chase the car",
+  "j": "その車を追跡する"
+ },
+ {
+  "e": "envy the rich",
+  "j": "金持ちをうらやむ"
+ },
+ {
+  "e": "forgive him for being late",
+  "j": "彼の遅刻を許す"
+ },
+ {
+  "e": "startling results",
+  "j": "驚くような結果"
+ },
+ {
+  "e": "pardon me",
+  "j": "ごめんなさい"
+ },
+ {
+  "e": "trees decorated with lights",
+  "j": "電球で飾られた木々"
+ },
+ {
+  "e": "don't cheat on your taxes!",
+  "j": "税金をごまかすな！"
+ },
+ {
+  "e": "cars equipped with air bags",
+  "j": "エアバッグを装備した車"
+ },
+ {
+  "e": "pronounce the word correctly",
+  "j": "正確にその後を発音する"
+ },
+ {
+  "e": "irritating noise",
+  "j": "いらいらさせる騒音"
+ },
+ {
+  "e": "descend to the ground",
+  "j": "地面に降りる"
+ },
+ {
+  "e": "resort to violence",
+  "j": "暴力に訴える（を手段として用いる）"
+ },
+ {
+  "e": "split into two groups",
+  "j": "2つのグループに分裂する"
+ },
+ {
+  "e": "save a drowning child",
+  "j": "おぼれている子供を救う"
+ },
+ {
+  "e": "undertake the work",
+  "j": "仕事を引き受ける"
+ },
+ {
+  "e": "lean against the wall",
+  "j": "壁にもたれる"
+ },
+ {
+  "e": "rob the bank of $50000",
+  "j": "銀行から5万ドル奪う"
+ },
+ {
+  "e": "acknowledge the fact",
+  "j": "事実を認める"
+ },
+ {
+  "e": "be elected President",
+  "j": "大統領に選ばれる"
+ },
+ {
+  "e": "nod and say \"yes\"",
+  "j": "うなずいて「はい」と言う"
+ },
+ {
+  "e": "assign work to each member",
+  "j": "各メンバーに仕事を割り当てる"
+ },
+ {
+  "e": "sew a wedding dress",
+  "j": "ウェディングドレスを縫う"
+ },
+ {
+  "e": "be appointed to an important post",
+  "j": "重要なポストに任命される"
+ },
+ {
+  "e": "cars constitute 10%　of the exports",
+  "j": "車が輸出の10%を占める"
+ },
+ {
+  "e": "the noise scares him",
+  "j": "その音が彼を怯えさせる"
+ },
+ {
+  "e": "convert sunlight into electricity",
+  "j": "太陽の光を電気に転換する"
+ },
+ {
+  "e": "exhibit Picasso's works",
+  "j": "ピカソの作品を展示する"
+ },
+ {
+  "e": "be confined to a small room",
+  "j": "小さな部屋に閉じ込められる"
+ },
+ {
+  "e": "resolve the problem",
+  "j": "問題を解決する"
+ },
+ {
+  "e": "starve to death",
+  "j": "餓死する"
+ },
+ {
+  "e": "ban smoking in public places",
+  "j": "公共の場を喫煙を禁ずる"
+ },
+ {
+  "e": "attribute the success to luck",
+  "j": "成功は幸運のせいだと思う"
+ },
+ {
+  "e": "cast a shadow on the wall",
+  "j": "壁に影を投げかける"
+ },
+ {
+  "e": "the fact corresponds to my theory",
+  "j": "その事実は私の理論と一致する"
+ },
+ {
+  "e": "register a new car",
+  "j": "新車を登録する"
+ },
+ {
+  "e": "an astonishing memory",
+  "j": "驚異的な記憶力"
+ },
+ {
+  "e": "deprive him of the chance",
+  "j": "彼からチャンスを奪う"
+ },
+ {
+  "e": "be frustrated by the lack of money",
+  "j": "金がなくて欲求不満になる"
+ },
+ {
+  "e": "accuse him of being cold",
+  "j": "彼を冷たいと避難する"
+ },
+ {
+  "e": "overlook the fact",
+  "j": "事実を見逃す"
+ },
+ {
+  "e": "the Soviet Union collapsed",
+  "j": "ソビエト連邦が崩壊した"
+ },
+ {
+  "e": "grasp what he is saying",
+  "j": "彼の言うことを理解する"
+ },
+ {
+  "e": "invest money in a business",
+  "j": "ビジネスにお金を投資する"
+ },
+ {
+  "e": "qualify for the position",
+  "j": "その地位に適任である"
+ },
+ {
+  "e": "be obliged to pay taxes",
+  "j": "税金を払わざるをえない"
+ },
+ {
+  "e": "prohibit children from smoking",
+  "j": "子供がタバコを吸うのを禁じる"
+ },
+ {
+  "e": "how to breed animals",
+  "j": "動物を繁殖させる方法"
+ },
+ {
+  "e": "dismiss the idea as nonsense",
+  "j": "その考えがばからしいと無視する"
+ },
+ {
+  "e": "bow to the queen",
+  "j": "女王様にお辞儀する"
+ },
+ {
+  "e": "burst into tears",
+  "j": "急に泣き出す"
+ },
+ {
+  "e": "cheer up the patients",
+  "j": "患者たちを元気づける"
+ },
+ {
+  "e": "found a computer company",
+  "j": "コンピュータ会社を設立する"
+ },
+ {
+  "e": "transmit messages",
+  "j": "メッセージを伝える"
+ },
+ {
+  "e": "fulfill the promise",
+  "j": "約束を果たす"
+ },
+ {
+  "e": "cultivate friendships",
+  "j": "友情を育てる"
+ },
+ {
+  "e": "specialize in Chinese history",
+  "j": "中国史を専攻する"
+ },
+ {
+  "e": "inspire him to write a poem",
+  "j": "彼に詩を書く気を起こさせる"
+ },
+ {
+  "e": "crash into the wall",
+  "j": "壁に激突する"
+ },
+ {
+  "e": "feel too depressed to go out",
+  "j": "憂鬱で出かける気がしない"
+ },
+ {
+  "e": "consult a doctor for advice",
+  "j": "医者に相談して助言を求める"
+ },
+ {
+  "e": "assure you that you will win",
+  "j": "君が勝つことを保証する"
+ },
+ {
+  "e": "stimulate the imagination",
+  "j": "想像力を刺激する"
+ },
+ {
+  "e": "arrest him for speeding",
+  "j": "スピード違反で彼を逮捕する"
+ },
+ {
+  "e": "this example illustrates his ability",
+  "j": "この例が彼の能力を示す"
+ },
+ {
+  "e": "confront a difficult problem",
+  "j": "困難な問題に立ち向かう"
+ },
+ {
+  "e": "interrupt their conversation",
+  "j": "彼らの会話を邪魔する"
+ },
+ {
+  "e": "he was transferred to Osaka",
+  "j": "彼は大阪に転勤した"
+ },
+ {
+  "e": "substitute margarine for butter",
+  "j": "マーガリンをバターの代わりに用いる"
+ },
+ {
+  "e": "capture wild animals",
+  "j": "野生動物をとらえる"
+ },
+ {
+  "e": "a team composed of nine members",
+  "j": "9人で構成されたチーム"
+ },
+ {
+  "e": "restrict freedom of speech",
+  "j": "言論の自由を制限する"
+ },
+ {
+  "e": "reverse the position",
+  "j": "立場を逆転する"
+ },
+ {
+  "e": "a bookcase attached to the wall",
+  "j": "壁に取り付けられた本棚"
+ },
+ {
+  "e": "regret leaving home",
+  "j": "家を出たのを後悔する"
+ },
+ {
+  "e": "ruin his life",
+  "j": "彼の人生を破滅させる"
+ },
+ {
+  "e": "amuse students with jokes",
+  "j": "冗談で学生を笑わせる"
+ },
+ {
+  "e": "demonstrate the truth",
+  "j": "事実を証明する"
+ },
+ {
+  "e": "pursue the American Dream",
+  "j": "アメリカンドリームを追い求める"
+ },
+ {
+  "e": "weigh 65 kilograms65",
+  "j": "キロの重さがある"
+ },
+ {
+  "e": "celebrate his birthday",
+  "j": "彼の誕生日を祝う"
+ },
+ {
+  "e": "resist pressure from the US",
+  "j": "アメリカの圧力に抵抗する"
+ },
+ {
+  "e": "can we eliminate cancer?",
+  "j": "がんをなくすことはできますか？"
+ },
+ {
+  "e": "obey the law",
+  "j": "法に従う"
+ },
+ {
+  "e": "spoil the party",
+  "j": "パーティーを台無しにする"
+ },
+ {
+  "e": "the Soviet Union ceased to exist",
+  "j": "ソ連は存在しなくなった"
+ },
+ {
+  "e": "interpret the word in two ways",
+  "j": "言葉を二通りに解釈する"
+ },
+ {
+  "e": "ensure your success",
+  "j": "君の成功を保証する"
+ },
+ {
+  "e": "proceed straight ahead",
+  "j": "真っ直ぐ前に進む"
+ },
+ {
+  "e": "he lost despite his efforts",
+  "j": "努力にもかかわらず彼は負けた"
+ },
+ {
   "e": "how to handle problems",
   "j": "どう問題を対処するべきか"
  },
