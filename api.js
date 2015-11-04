@@ -5,6 +5,12 @@ var express     = require('express'),
     fs          = require('fs'),
     _           = require('lodash'),
     gm          = require('gm'),
+    favicon     = require('serve-favicon'),
+    logger      = require('morgan'),
+    methodOverride = require('method-override'),
+    cookieParser = require('cookie-parser'),
+    bodyParser  = require('body-parser'),
+    static = require('serve-static'),
     Poem        = require(path.join(__dirname, 'poem.js')),
     Db          = require(path.join(__dirname, 'dbmodels.js')),
     viewHelp    = require(path.join(__dirname, 'view_page_helpers.js')),
@@ -19,11 +25,12 @@ var express     = require('express'),
 
     Db.initialize_models(function(res) {
       if (res instanceof Error) {throw res;}
-      Db.Poem.all().success(function(dbpoems) {
-        dbpoems.forEach(function(dbpoem,i) {
+      Db.Poem.all().each(function(dbpoem) {
           var poem = Poem.depersist(dbpoem);
           POEMS[poem.id] = poem;
-        });
+      })
+      .catch(function(err) {
+        console.error("SOME KIND OF ERROR?", err);
       });
     });
 
@@ -31,18 +38,21 @@ var express     = require('express'),
 gm = gm.subClass({ imageMagick: true });
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.OLIOETRY_PORT || 4800);
 app.set('views', path.join (__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(express.favicon(__dirname + '/public/favicon.ico'));
-app.use(express.logger('dev')); //TODO: Toggle logging?
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser('electric SH33P'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger({format: require('../../logFormat')})); //TODO: Toggle logging?
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
+app.use(cookieParser('electric SH33P'));
 //app.use(express.session());
 //app.use(passport.initialize());
 //app.use(passport.session()); //For use if running passport auth
-app.use(express.static(path.join(__dirname, 'public')));
+// Static serving
+app.use(static(path.join(__dirname, 'public')));
+
 
 app.get('/store', function(req, res) {
     res.attachment('enjp-db');
@@ -77,21 +87,21 @@ app.get('/', function(req, res) {
 });
 
 app.get('/:lang', function(req, res) {
-  var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
+  var result = _(POEMS).sortBy('id').takeRight(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
 
   res.render('view_page', {lang: lang, poems: result, header: 'read'});
 });
 
 app.get('/:lang/poems', function(req, res) {
-  var result = _(POEMS).sortBy('id').last(VIEW_PAGE_LENGTH).reverse().value(),
+  var result = _(POEMS).sortBy('id').takeRight(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
 
   res.render('view_page', {lang: lang, poems: result, header: 'read'});
 });
 
 app.get('/:lang/best', function(req, res) {
-  var result = _(POEMS).sortBy('score').last(VIEW_PAGE_LENGTH).reverse().value(),
+  var result = _(POEMS).sortBy('score').takeRight(VIEW_PAGE_LENGTH).reverse().value(),
       lang = req.params.lang || LANG;
 
   res.render('view_page', {lang: lang, poems: result, header: 'best'});
@@ -177,7 +187,7 @@ app.post('/api/upvote/:id', function(req, res) {
 
 if (HN_VIEW_API) {
   app.get('/api/poems', function(req, res) {
-    var result = _(POEMS).sortBy('id').last(10).reverse().value();
+    var result = _(POEMS).sortBy('id').takeRight(10).reverse().value();
 
     res.send(JSON.stringify(result));
   });
@@ -229,11 +239,10 @@ function makeCard(poem, imgPath, res) {
   });
 }
 
-/* Uncomment this to listen instead of just exporting for vhost use
- *
- * http.createServer(app).listen(app.get('port'), function(){
- *  console.log('Express server listening on port ' + app.get('port'));
- * });
- */
+// Uncomment this to listen instead of just exporting for vhost use
+
+http.createServer(app).listen(app.get('port'), function(){
+ console.log('Express server listening on port ' + app.get('port'));
+});
 
 exports.app = app;
