@@ -72,7 +72,7 @@ module.exports = [
   "j": "ポーランドに侵入する"
  },
  {
-  "e": "The snow will melt soon.",
+  "e": "the snow will melt soon",
   "j": "雪はまもなく解けるだろう"
  },
  {
@@ -108,7 +108,7 @@ module.exports = [
   "j": "テーブルを拭く"
  },
  {
-  "e": "Exports exceed imports",
+  "e": "exports exceed imports",
   "j": "輸出が輸入を超える"
  },
  {
@@ -128,7 +128,7 @@ module.exports = [
   "j": "交通を規制する"
  },
  {
-  "e": "Memories of the war fade away",
+  "e": "memories of the war fade away",
   "j": "戦争の記憶が薄れる"
  },
  {
